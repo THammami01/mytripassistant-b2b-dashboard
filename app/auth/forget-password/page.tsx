@@ -1,0 +1,53 @@
+"use client";
+
+import React from "react";
+import { Button, Input, Link, Form } from "@heroui/react";
+import NextLink from "next/link";
+
+export default function Page() {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("handleSubmit");
+  };
+
+  return (
+    <div className="flex items-center justify-center w-full bg-background lg:w-1/2">
+      <div className="flex flex-col items-center w-full max-w-sm gap-4 p-4">
+        <div className="w-full text-left">
+          <p className="pb-2 text-xl font-medium">Forgot Password</p>
+          <p className="text-small text-default-500">
+            Regain access to your account
+          </p>
+        </div>
+
+        <Form
+          className="flex flex-col w-full gap-3"
+          validationBehavior="native"
+          onSubmit={handleSubmit}
+        >
+          <Input
+            isRequired
+            label="Email Address"
+            name="email"
+            placeholder="Enter your email"
+            type="email"
+            variant="flat"
+          />
+          <Button className="w-full" color="primary" type="submit">
+            Send Reset Link
+          </Button>
+        </Form>
+
+        <p className="text-center text-small">
+          Remember your credentials?&nbsp;
+          <NextLink legacyBehavior passHref href="/auth/sign-in">
+            <Link as="a" size="sm">
+              Sign In
+            </Link>
+          </NextLink>
+        </p>
+      </div>
+    </div>
+  );
+}
+
