@@ -4,7 +4,7 @@ import React from "react";
 import { User } from "@heroui/react";
 import Image from "next/image";
 
-import { ThemeSwitch } from "@/components/theme-switch";
+import { ThemeSwitch } from "@/components";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -34,7 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           backgroundPosition: "center",
         }}
       >
-        <div className="flex flex-col items-end gap-4">
+        <div className="flex flex-col items-end gap-4 mb-12">
           <User
             avatarProps={{
               src: "https://i.pravatar.cc/150?u=a04258a2462d826712d",
@@ -60,4 +60,3 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-

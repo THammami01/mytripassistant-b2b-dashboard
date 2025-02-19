@@ -1,18 +1,51 @@
 "use client";
 
 import React from "react";
-import { Button, Input, Link, Form } from "@heroui/react";
+import { Button, Input, Link } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import NextLink from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import toast from "react-hot-toast";
+
+import { resetPasswordFormSchema, ResetPasswordFormType } from "./types";
 
 export default function Page() {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ResetPasswordFormType>({
+    mode: "all",
+    resolver: zodResolver(resetPasswordFormSchema),
+    defaultValues: {
+      // password: "",
+      // confirmedPassword: "",
+      password: "password",
+      confirmedPassword: "password",
+    },
+  });
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const togglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("handleSubmit");
+  const onSubmit = async (data: ResetPasswordFormType) => {
+    if (data.password !== data.confirmedPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+
+    if (!executeRecaptcha) {
+      toast.error("Google reCAPTCHA is not available.");
+      return;
+    }
+
+    const reCaptchaToken = await executeRecaptcha("resetPassword");
+
+    console.log(data, reCaptchaToken);
   };
 
   return (
@@ -25,16 +58,15 @@ export default function Page() {
           </p>
         </div>
 
-        <Form
+        <form
           className="flex flex-col w-full gap-3"
-          validationBehavior="native"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Input
-            isRequired
+            description={errors?.password?.message}
             endContent={
-              <button type="button" onClick={toggleVisibility}>
-                {isVisible ? (
+              <button type="button" onClick={togglePasswordVisibility}>
+                {isPasswordVisible ? (
                   <Icon
                     className="text-2xl pointer-events-none text-default-400"
                     icon="solar:eye-closed-linear"
@@ -48,23 +80,28 @@ export default function Page() {
               </button>
             }
             label="New Password"
-            name="password"
             placeholder="Create a new password"
-            type={isVisible ? "text" : "password"}
+            type={isPasswordVisible ? "text" : "password"}
             variant="flat"
+            {...register("password")}
           />
           <Input
-            isRequired
+            description={errors?.confirmedPassword?.message}
             label="Confirm New Password"
-            name="confirmPassword"
             placeholder="Confirm your new password"
-            type={isVisible ? "text" : "password"}
+            type={isPasswordVisible ? "text" : "password"}
             variant="flat"
+            {...register("confirmedPassword")}
           />
-          <Button className="w-full" color="primary" type="submit">
+          <Button
+            className="w-full"
+            color="primary"
+            isDisabled={!isValid}
+            type="submit"
+          >
             Reset Password
           </Button>
-        </Form>
+        </form>
 
         <p className="text-center text-small">
           Remember your credentials?&nbsp;

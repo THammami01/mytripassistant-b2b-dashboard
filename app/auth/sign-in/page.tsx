@@ -4,15 +4,46 @@ import React from "react";
 import { Button, Input, Link, Divider, Checkbox, Form } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import NextLink from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import toast from "react-hot-toast";
+
+import { signInFormSchema, type SignInFormType } from "./";
+
+import { ContinueWithGoogleBtn } from "@/components";
 
 export default function Page() {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<SignInFormType>({
+    mode: "all",
+    resolver: zodResolver(signInFormSchema),
+    defaultValues: {
+      // email: "",
+      // password: "",
+      email: "hello@gmail.com",
+      password: "password",
+      rememberMe: false,
+    },
+  });
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const togglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("handleSubmit");
+  const onSubmit = async (data: SignInFormType) => {
+    if (!executeRecaptcha) {
+      toast.error("Google reCAPTCHA is not available.");
+      return;
+    }
+
+    const reCaptchaToken = await executeRecaptcha("signIn");
+
+    console.log(data, reCaptchaToken);
   };
 
   return (
@@ -26,12 +57,7 @@ export default function Page() {
         </div>
 
         <div className="flex flex-col w-full gap-2">
-          <Button
-            startContent={<Icon icon="flat-color-icons:google" width={24} />}
-            variant="bordered"
-          >
-            Continue with Google
-          </Button>
+          <ContinueWithGoogleBtn />
         </div>
 
         <div className="flex items-center w-full gap-4 py-2">
@@ -40,24 +66,23 @@ export default function Page() {
           <Divider className="flex-1" />
         </div>
 
-        <Form
+        <form
           className="flex flex-col w-full gap-3"
-          validationBehavior="native"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Input
-            isRequired
+            description={errors?.email?.message}
             label="Email Address"
-            name="email"
             placeholder="Enter your email"
             type="email"
             variant="flat"
+            {...register("email")}
           />
           <Input
-            isRequired
+            description={errors?.password?.message}
             endContent={
-              <button type="button" onClick={toggleVisibility}>
-                {isVisible ? (
+              <button type="button" onClick={togglePasswordVisibility}>
+                {isPasswordVisible ? (
                   <Icon
                     className="text-2xl pointer-events-none text-default-400"
                     icon="solar:eye-closed-linear"
@@ -71,25 +96,30 @@ export default function Page() {
               </button>
             }
             label="Password"
-            name="password"
             placeholder="Enter your password"
-            type={isVisible ? "text" : "password"}
+            type={isPasswordVisible ? "text" : "password"}
             variant="flat"
+            {...register("password")}
           />
           <div className="flex items-center justify-between w-full px-1 py-2">
-            <Checkbox name="remember" size="sm">
+            <Checkbox size="sm" {...register("rememberMe")}>
               Remember for 15 days
             </Checkbox>
-            <NextLink legacyBehavior passHref href="/auth/forget-password">
+            <NextLink legacyBehavior passHref href="/auth/forgot-password">
               <Link as="a" className="text-default-500" size="sm">
                 Forgot password?
               </Link>
             </NextLink>
           </div>
-          <Button className="w-full" color="primary" type="submit">
+          <Button
+            className="w-full"
+            color="primary"
+            isDisabled={!isValid}
+            type="submit"
+          >
             Log In
           </Button>
-        </Form>
+        </form>
 
         <p className="text-center text-small">
           Need to create an account?&nbsp;
@@ -103,3 +133,4 @@ export default function Page() {
     </div>
   );
 }
+

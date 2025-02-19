@@ -4,11 +4,54 @@ import React from "react";
 import { Button, Input, Link, Divider, Checkbox } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import NextLink from "next/link";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import toast from "react-hot-toast";
+
+import { signUpFormSchema, type SignUpFormType } from "./";
+
+import { ContinueWithGoogleBtn } from "@/components";
 
 export default function Page() {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<SignUpFormType>({
+    mode: "all",
+    resolver: zodResolver(signUpFormSchema),
+    defaultValues: {
+      // email: "",
+      // password: "",
+      // confirmedPassword: "",
+      email: "hello@gmail.com",
+      password: "password",
+      confirmedPassword: "password",
+      agreeWithTermsAndPrivacy: false,
+    },
+  });
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const togglePasswordVisibility = () =>
+    setIsPasswordVisible(!isPasswordVisible);
+
+  const onSubmit = async (data: SignUpFormType) => {
+    if (data.password !== data.confirmedPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+
+    if (!executeRecaptcha) {
+      toast.error("Google reCAPTCHA is not available.");
+      return;
+    }
+
+    const reCaptchaToken = await executeRecaptcha("signUp");
+
+    console.log(data, reCaptchaToken);
+  };
 
   return (
     <div className="flex items-center justify-center w-full bg-background lg:w-1/2">
@@ -21,12 +64,7 @@ export default function Page() {
         </div>
 
         <div className="flex flex-col w-full gap-2">
-          <Button
-            startContent={<Icon icon="flat-color-icons:google" width={24} />}
-            variant="bordered"
-          >
-            Sign Up with Google
-          </Button>
+          <ContinueWithGoogleBtn />
         </div>
 
         <div className="flex items-center w-full gap-4 py-2">
@@ -37,21 +75,21 @@ export default function Page() {
 
         <form
           className="flex flex-col w-full gap-3"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Input
-            isRequired
+            description={errors?.email?.message}
             label="Email Address"
-            name="email"
             placeholder="Enter your email"
             type="email"
             variant="flat"
+            {...register("email")}
           />
           <Input
-            isRequired
+            description={errors?.password?.message}
             endContent={
-              <button type="button" onClick={toggleVisibility}>
-                {isVisible ? (
+              <button type="button" onClick={togglePasswordVisibility}>
+                {isPasswordVisible ? (
                   <Icon
                     className="text-2xl pointer-events-none text-default-400"
                     icon="solar:eye-closed-linear"
@@ -65,20 +103,24 @@ export default function Page() {
               </button>
             }
             label="Password"
-            name="password"
             placeholder="Create a password"
-            type={isVisible ? "text" : "password"}
+            type={isPasswordVisible ? "text" : "password"}
             variant="flat"
+            {...register("password")}
           />
           <Input
-            isRequired
+            description={errors?.confirmedPassword?.message}
             label="Confirm Password"
-            name="confirmPassword"
             placeholder="Confirm your password"
-            type={isVisible ? "text" : "password"}
+            type={isPasswordVisible ? "text" : "password"}
             variant="flat"
+            {...register("confirmedPassword")}
           />
-          <Checkbox isRequired className="py-4" size="sm">
+          <Checkbox
+            className="py-4"
+            size="sm"
+            {...register("agreeWithTermsAndPrivacy")}
+          >
             I agree with the&nbsp;
             <Link
               className="z-10"
@@ -98,7 +140,7 @@ export default function Page() {
               Privacy Policy
             </Link>
           </Checkbox>
-          <Button color="primary" type="submit">
+          <Button color="primary" isDisabled={!isValid} type="submit">
             Sign Up
           </Button>
         </form>
@@ -115,4 +157,3 @@ export default function Page() {
     </div>
   );
 }
-
