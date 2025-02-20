@@ -31,7 +31,7 @@ export default function ContinueWithGoogleBtn() {
     <Button
       startContent={<Icon icon="flat-color-icons:google" width={24} />}
       variant="bordered"
-      onClick={() => handleSignInWithGoogle()}
+      onPress={() => handleSignInWithGoogle()}
     >
       Continue with Google
     </Button>
