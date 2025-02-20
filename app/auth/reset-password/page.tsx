@@ -35,7 +35,10 @@ export default function Page() {
     const token = new URLSearchParams(window.location.search).get("token");
 
     if (token) setIsUIReady(true);
-    else redirect("/auth/sign-in");
+    else {
+      toast.error("Reset password token is either invalid or not found.");
+      redirect("/");
+    }
   }, []);
 
   const togglePasswordVisibility = () =>
@@ -137,3 +140,4 @@ export default function Page() {
     </div>
   );
 }
+

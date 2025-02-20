@@ -2,13 +2,11 @@
 
 ## Technologies Used
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
+- [Next.js 15](https://nextjs.org/docs/getting-started)
 - [HeroUI v2](https://heroui.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- [Prisma](https://www.prisma.io/)
 
 ## How to Use
 
@@ -17,7 +15,7 @@
 You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
 
 ```bash
-npm install
+npm install  # Or: npm ci
 ```
 
 ### Run the development server
@@ -26,12 +24,19 @@ npm install
 npm run dev
 ```
 
-### Setup pnpm (optional)
+## Database
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+### Setup
 
 ```bash
-public-hoist-pattern[]=*@heroui/*
+docker compose up -d
 ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+### Migrations
+
+```bash
+npx prisma studio  # Open the Prisma Studio
+npx prisma generate  # Generate the Prisma client
+npx prisma migrate dev --name <the-name-of-the-change>  # Create a new migration
+npx prisma migrate deploy  # Deploy the migration to the database
+```

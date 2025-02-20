@@ -51,6 +51,8 @@ export default function Page() {
     const reCaptchaToken = await executeRecaptcha("signUp");
 
     console.log(data, reCaptchaToken);
+    
+    
   };
 
   return (
