@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 
-// import { getUserFromCookie } from "@/lib/auth"; // Your authentication logic here
-
-export function middleware(req: Request) {
+export function middleware(_req: Request) {
   // Check if the user is authenticated
-  // const user = getUserFromCookie(req);
 
   // if (!user) {
   //   // If no user, return Unauthorized
@@ -14,7 +11,6 @@ export function middleware(req: Request) {
   return NextResponse.next(); // Proceed if authenticated
 }
 
-// Only apply to /api/protected routes
 export const config = {
   matcher: "/api/protected/*",
 };
