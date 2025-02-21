@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { signUpFormSchema, type SignUpFormType } from "./";
 
 import { ContinueWithGoogleBtn } from "@/components";
+import { AuthService } from "@/services";
 
 export default function Page() {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
@@ -28,11 +29,12 @@ export default function Page() {
       // password: "",
       // confirmedPassword: "",
       email: "hello@gmail.com",
-      password: "password",
-      confirmedPassword: "password",
+      password: "Hello1234@",
+      confirmedPassword: "Hello1234@",
       agreeWithTermsAndPrivacy: false,
     },
   });
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const togglePasswordVisibility = () =>
     setIsPasswordVisible(!isPasswordVisible);
@@ -50,9 +52,24 @@ export default function Page() {
 
     const reCaptchaToken = await executeRecaptcha("signUp");
 
-    console.log(data, reCaptchaToken);
-    
-    
+    setIsLoading(true);
+
+    AuthService.signUp({
+      email: data.email,
+      password: data.password,
+      reCaptchaToken,
+    })
+      .then((res) => {
+        toast.success("Account created successfully.");
+        console.log(res);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -142,7 +159,12 @@ export default function Page() {
               Privacy Policy
             </Link>
           </Checkbox>
-          <Button color="primary" isDisabled={!isValid} type="submit">
+          <Button
+            color="primary"
+            isDisabled={!isValid || isLoading}
+            isLoading={isLoading}
+            type="submit"
+          >
             Sign Up
           </Button>
         </form>

@@ -37,6 +37,7 @@ docker compose up -d
 ```bash
 npx prisma studio  # Open the Prisma Studio
 npx prisma generate  # Generate the Prisma client
+npx prisma db seed  # Seed the database
 npx prisma migrate dev --name <the-name-of-the-change>  # Create a new migration
 npx prisma migrate deploy  # Deploy the migration to the database
 ```

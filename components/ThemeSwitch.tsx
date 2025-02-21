@@ -87,7 +87,7 @@ export default function ThemeSwitch({
         className: clsx(
           "px-px transition-opacity hover:opacity-80 cursor-pointer",
           className,
-          classNames?.base
+          classNames?.base,
         ),
       })}
     >
@@ -109,7 +109,7 @@ export default function ThemeSwitch({
               "px-0",
               "mx-0",
             ],
-            classNames?.wrapper
+            classNames?.wrapper,
           ),
         })}
       >
@@ -122,4 +122,3 @@ export default function ThemeSwitch({
     </Component>
   );
 }
-

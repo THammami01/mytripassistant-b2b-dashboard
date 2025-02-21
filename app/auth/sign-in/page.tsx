@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button, Input, Link, Divider, Checkbox, Form } from "@heroui/react";
+import { Button, Input, Link, Divider, Checkbox } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { signInFormSchema, type SignInFormType } from "./";
 
 import { ContinueWithGoogleBtn } from "@/components";
+import { AuthService } from "@/services";
 
 export default function Page() {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
@@ -27,10 +28,11 @@ export default function Page() {
       // email: "",
       // password: "",
       email: "hello@gmail.com",
-      password: "password",
+      password: "Hello1234@",
       rememberMe: false,
     },
   });
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const togglePasswordVisibility = () =>
     setIsPasswordVisible(!isPasswordVisible);
@@ -43,7 +45,24 @@ export default function Page() {
 
     const reCaptchaToken = await executeRecaptcha("signIn");
 
-    console.log(data, reCaptchaToken);
+    setIsLoading(true);
+
+    AuthService.signIn({
+      email: data.email,
+      password: data.password,
+      reCaptchaToken,
+    })
+      .then((res) => {
+        toast.success("Signed in successfully.");
+        console.log(res);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -114,7 +133,8 @@ export default function Page() {
           <Button
             className="w-full"
             color="primary"
-            isDisabled={!isValid}
+            isDisabled={!isValid || isLoading}
+            isLoading={isLoading}
             type="submit"
           >
             Log In
@@ -133,4 +153,3 @@ export default function Page() {
     </div>
   );
 }
-

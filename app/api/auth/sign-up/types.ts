@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const signInFormSchema = z.object({
+export const signUpSchema = z.object({
   email: z
     .string()
     .email("Please enter a valid email address")
@@ -13,8 +13,7 @@ export const signInFormSchema = z.object({
     .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
     .regex(/[a-z]/, "Password must contain at least one lowercase letter")
     .regex(/[0-9]/, "Password must contain at least one number"),
-  rememberMe: z.boolean().optional(),
-  reCaptchaToken: z.string().optional(),
+  reCaptchaToken: z.string().min(1, "ReCaptcha verification is required"),
 });
 
-export type SignInFormType = z.infer<typeof signInFormSchema>;
+export type SignUpSchemaType = z.infer<typeof signUpSchema>;

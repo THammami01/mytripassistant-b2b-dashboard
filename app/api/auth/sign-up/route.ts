@@ -1,15 +1,59 @@
-// app/api/auth/signup/route.ts
+import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
+import { z } from "zod";
+
+import { verifyReCaptchaToken, createSession } from "../helpers";
+
+import { signUpSchema } from "./";
+
+import prisma from "@/prisma/db";
 
 export async function POST(req: Request) {
-  const { username, password } = await req.json();
+  try {
+    const { email, password, reCaptchaToken } = await signUpSchema.parseAsync(
+      await req.json()
+    );
 
-  const newUser = await signUpUser(username, password);
+    await verifyReCaptchaToken(reCaptchaToken);
 
-  if (newUser) {
-    // Set a cookie or session here
-    return NextResponse.json({ message: "Sign-up successful", newUser });
-  } else {
-    return NextResponse.json({ error: "User already exists" }, { status: 400 });
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User with this email already exists" },
+        { status: 400 }
+      );
+    }
+
+    const user = await prisma.user.create({
+      data: {
+        email: email,
+        hashedPassword: await bcrypt.hash(password, 10),
+      },
+    });
+
+    const userWithoutSensitiveData = {
+      ...user,
+      hashedPassword: undefined,
+      googleIds: undefined,
+    };
+
+    await createSession(user.id);
+
+    return NextResponse.json({
+      user: userWithoutSensitiveData,
+    });
+  } catch (error: any) {
+    if (error instanceof z.ZodError) {
+      const errorMessages = error.errors
+        .map((e) => `${e.path.join(".")}: ${e.message}`)
+        .join(", ");
+
+      return NextResponse.json({ error: errorMessages }, { status: 400 });
+    }
+
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }

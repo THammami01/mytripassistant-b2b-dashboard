@@ -1,48 +1,54 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import bcrypt from "bcrypt";
 
-import { createSession } from "../helpers";
+import { createSession, verifyReCaptchaToken } from "../helpers";
 
-const testUser = {
-  id: "1",
-  email: "contact@cosdensolutions.io",
-  password: "12345678",
-};
+import { signInSchema } from "./types";
 
-const userSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }).trim(),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" })
-    .trim(),
-});
+import prisma from "@/prisma/db";
 
 export async function POST(req: Request) {
-  const result = userSchema.safeParse(await req.json());
+  try {
+    const { email, password, rememberMe, reCaptchaToken } =
+      await signInSchema.parseAsync(await req.json());
 
-  if (!result.success) {
-    return NextResponse.json(
-      {
-        errors: result.error.flatten().fieldErrors,
-      },
-      { status: 400 }
-    );
+    await verifyReCaptchaToken(reCaptchaToken);
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 400 });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.hashedPassword);
+
+    if (!isPasswordValid) {
+      return NextResponse.json({ error: "Invalid password" }, { status: 400 });
+    }
+
+    const userWithoutSensitiveData = {
+      ...user,
+      hashedPassword: undefined,
+      googleIds: undefined,
+    };
+
+    await createSession(user.id, rememberMe);
+
+    return NextResponse.json({
+      user: userWithoutSensitiveData,
+    });
+  } catch (error: any) {
+    if (error instanceof z.ZodError) {
+      const errorMessages = error.errors
+        .map((e) => `${e.path.join(".")}: ${e.message}`)
+        .join(", ");
+
+      return NextResponse.json({ error: errorMessages }, { status: 400 });
+    }
+
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
-
-  const { email, password } = result.data;
-
-  if (email !== testUser.email || password !== testUser.password) {
-    return NextResponse.json(
-      {
-        errors: {
-          email: ["Invalid email or password"],
-        },
-      },
-      { status: 400 }
-    );
-  }
-
-  await createSession(testUser.id);
-
-  return NextResponse.json({ message: "Sign-in successful", user: testUser });
 }
