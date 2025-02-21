@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { User } from "@heroui/react";
+import { Divider, User } from "@heroui/react";
 import Image from "next/image";
 
 import { ThemeSwitch } from "@/components";
@@ -17,7 +17,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             MyTripAssistant{" "}
             <span className="text-gray-400">| B2B Dashboard</span>
           </p>
-          <ThemeSwitch className="ml-2" />
+        </div>
+        <Divider className="flex-1 mt-3 mb-2" />
+        <div className="flex items-center gap-2 mx-4">
+          <p className="text-sm text-gray-400">Switch theme?</p>
+          <ThemeSwitch />
         </div>
       </div>
 
@@ -29,7 +33,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         className="relative flex-col-reverse hidden w-1/2 p-10 rounded-medium shadow-small lg:flex"
         style={{
           backgroundImage:
-            "url(https://images.unsplash.com/photo-1460904041914-f2b315f93560?q=80&w=3088&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+            // "url(https://images.unsplash.com/photo-1460904041914-f2b315f93560?q=80&w=3088&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+            "url(https://images.unsplash.com/photo-1500835556837-99ac94a94552?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
