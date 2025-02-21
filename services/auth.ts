@@ -106,4 +106,17 @@ export const AuthService = {
 
     return response.json();
   },
+
+  async getUser(userId: string) {
+    const response = await fetch(`/api/auth/user/${userId}`);
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.log(error);
+
+      throw new Error(`Get user failed. ${error.error}.`);
+    }
+
+    return response.json();
+  },
 };

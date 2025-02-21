@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 import { signUpFormSchema, type SignUpFormType } from "./";
 
@@ -15,6 +16,7 @@ import { ContinueWithGoogleBtn } from "@/components";
 import { AuthService } from "@/services";
 
 export default function Page() {
+  const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
   const {
@@ -61,6 +63,7 @@ export default function Page() {
     })
       .then((res) => {
         toast.success("Account created successfully.");
+        router.push("/dashboard");
         console.log(res);
       })
       .catch((err) => {
