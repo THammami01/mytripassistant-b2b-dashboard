@@ -57,7 +57,6 @@ export default function Page() {
       .then((res) => {
         toast.success("Signed in successfully.");
         router.push("/dashboard");
-        console.log(res);
       })
       .catch((err) => {
         toast.error(err.message);

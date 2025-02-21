@@ -24,9 +24,13 @@ export const createSession = async (userId: string, rememberMe = false) => {
   const expiresAt = new Date(Date.now() + expirationDays * 24 * 60 * 60 * 1000);
   const session = await signJwtToken({ userId, expiresAt }, expirationDays);
 
-  (await cookies()).set("session", session, {
+  const cookieStore = await cookies();
+
+  cookieStore.set("session", session, {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
     ...(rememberMe && { maxAge: expirationDays * 24 * 60 * 60 }),
     expires: expiresAt,
   });

@@ -1,25 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
-import { headers } from "next/headers";
+
+import { verifyJwtToken } from "../../helpers";
 
 import prisma from "@/prisma/db";
 
-export async function GET(_req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
-    const headersList = await headers();
+    const { id } = await context.params;
+    const session = req.headers.get("x-session");
 
-    const userId = headersList.get("x-user-id");
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-    if (!userId) {
-      return NextResponse.json(
-        { error: "User ID is required" },
-        { status: 401 }
-      );
+    const payload = await verifyJwtToken(session);
+
+    if (!payload || payload.userId !== id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
+      where: { id },
     });
 
     if (!user) {

@@ -34,6 +34,8 @@ export default function Page() {
     const reCaptchaToken = await executeRecaptcha("forgotPassword");
 
     console.log(data, reCaptchaToken);
+
+    toast("Password reset is not implemented yet.");
   };
 
   return (

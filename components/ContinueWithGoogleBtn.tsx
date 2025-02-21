@@ -17,6 +17,8 @@ export default function ContinueWithGoogleBtn() {
     const reCaptchaToken = await executeRecaptcha("signInWithGoogle");
 
     console.log(codeResponse.code, reCaptchaToken);
+
+    toast("Sign in with Google is not implemented yet.");
   };
 
   const onError = () => toast.error("Something went wrong, try again.");

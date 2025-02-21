@@ -64,7 +64,6 @@ export default function Page() {
       .then((res) => {
         toast.success("Account created successfully.");
         router.push("/dashboard");
-        console.log(res);
       })
       .catch((err) => {
         toast.error(err.message);
