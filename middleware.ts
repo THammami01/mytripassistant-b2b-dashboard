@@ -4,36 +4,41 @@ import { NextResponse } from "next/server";
 
 import { verifyJwtToken } from "@/app/api/auth/helpers";
 
-export async function middleware(request: NextRequest) {
-  const session = request.cookies.get("session")?.value;
-  const isAuthPage = request.nextUrl.pathname.startsWith("/auth");
-  const isDashboardPage = request.nextUrl.pathname.startsWith("/dashboard");
+export async function middleware(req: NextRequest) {
+  const session = req.cookies.get("session")?.value;
+  const isAuthPage = req.nextUrl.pathname.startsWith("/auth");
+  const isDashboardPage = req.nextUrl.pathname.startsWith("/dashboard");
 
   // If user is authenticated and tries to access auth pages, redirect to dashboard
   if (isAuthPage && session) {
     const payload = await verifyJwtToken(session);
 
     if (payload && new Date(payload.expiresAt as Date) > new Date()) {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      return NextResponse.redirect(new URL("/dashboard", req.url));
     }
   }
 
   // If user tries to access dashboard without auth, redirect to sign in
   if (isDashboardPage) {
     if (!session) {
-      return NextResponse.redirect(new URL("/auth/sign-in", request.url));
+      return NextResponse.redirect(new URL("/auth/sign-in", req.url));
     }
 
     const payload = await verifyJwtToken(session);
 
-    if (!payload || new Date(payload.expiresAt as Date) < new Date()) {
-      return NextResponse.redirect(new URL("/auth/sign-in", request.url));
+    if (
+      !payload ||
+      !payload.userId ||
+      !payload.exp ||
+      payload.exp * 1000 < Date.now()
+    ) {
+      return NextResponse.redirect(new URL("/auth/sign-in", req.url));
     }
 
     return NextResponse.next({
       headers: {
         "x-user-id": payload.userId as string,
-        "x-session": session, // TODO: Remove this header and use cookies
+        "x-session": session,
       },
     });
   }

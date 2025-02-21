@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { verifyJwtToken } from "../../helpers";
-
 import prisma from "@/prisma/db";
 
 export async function GET(
@@ -10,17 +8,6 @@ export async function GET(
 ) {
   try {
     const { id } = await context.params;
-    const session = req.headers.get("x-session");
-
-    if (!session) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const payload = await verifyJwtToken(session);
-
-    if (!payload || payload.userId !== id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
 
     const user = await prisma.user.findUnique({
       where: { id },

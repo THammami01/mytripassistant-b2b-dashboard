@@ -1,23 +1,8 @@
 import { headers } from "next/headers";
 
+import { getUser } from "../actions/dashboard/getUser";
+
 import { UserProvider } from "@/contexts/user";
-
-async function getUser(userId: string, session: string) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/user/${userId}`,
-    {
-      headers: {
-        "x-session": session,
-      },
-    }
-  );
-
-  if (!response.ok) {
-    return null;
-  }
-
-  return response.json();
-}
 
 export default async function DashboardLayout({
   children,
@@ -26,8 +11,7 @@ export default async function DashboardLayout({
 }) {
   const headersList = await headers();
   const userId = headersList.get("x-user-id")!;
-  const session = headersList.get("x-session")!;
-  const user = userId ? await getUser(userId, session) : null;
+  const user = userId ? await getUser(userId) : null;
 
   return (
     <UserProvider initialUser={user}>
