@@ -109,7 +109,7 @@ export default function Component() {
   );
 
   return (
-    <div className="flex w-full h-dvh">
+    <div className="flex w-full !h-dvh">
       <SidebarDrawer
         className=" !border-r-small border-divider"
         isOpen={isOpen}
