@@ -5,14 +5,15 @@ import { Button, ScrollShadow, Spacer, useDisclosure } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 import { usePathname } from "next/navigation";
 
 import SidebarDrawer from "./sidebar-drawer";
 import { sectionItemsWithTeams } from "./sidebar-items";
 import Sidebar from "./sidebar";
 import TeamAvatar from "./team-avatar";
+import BreadcumbsHeader from "./breadcumbs-header";
 
+import ThemeSwitch from "@/components/ThemeSwitch";
 import { AuthService } from "@/services";
 import { useUser } from "@/contexts/user";
 
@@ -54,7 +55,10 @@ export default function SubLayout({ children }: PropsWithChildren) {
       <div className="flex items-center gap-3 px-3">
         <TeamAvatar isBordered name={name} />
         <div className="flex flex-col">
-          <p className="w-[10rem] font-medium truncate text-small text-default-600" title={name || user?.email}>
+          <p
+            className="w-[10rem] font-medium truncate text-small text-default-600"
+            title={name || user?.email}
+          >
             {name || user?.email}
           </p>
           <p className="text-tiny text-default-400">Admin</p>
@@ -72,7 +76,13 @@ export default function SubLayout({ children }: PropsWithChildren) {
       </ScrollShadow>
 
       <Spacer y={8} />
+      
       <div className="flex flex-col mt-auto">
+        <div className="flex items-center gap-2 mx-2 mb-4">
+          <p className="text-sm text-gray-400">Switch theme?</p>
+          <ThemeSwitch />
+        </div>
+        
         <Button
           fullWidth
           className="justify-start text-default-500 data-[hover=true]:text-foreground"
@@ -135,11 +145,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
               width={24}
             />
           </Button>
-          <Breadcrumbs size="lg">
-            <BreadcrumbItem>Dashboard</BreadcrumbItem>
-            <BreadcrumbItem>Apps</BreadcrumbItem>
-            <BreadcrumbItem>App 01</BreadcrumbItem>
-          </Breadcrumbs>
+          <BreadcumbsHeader />
         </header>
         <main className="w-full h-full mt-4 overflow-visible">
           <div className="flex h-[90%] w-full flex-col gap-4 rounded-medium border-small border-divider">

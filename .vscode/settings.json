@@ -1,7 +1,9 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
+    "Breadcumbs",
     "FIRSTNAME",
+    "heroui",
     "lastname",
     "mytripassistant"
   ]
