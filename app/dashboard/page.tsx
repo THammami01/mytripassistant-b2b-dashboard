@@ -1,13 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-  Avatar,
-  Button,
-  ScrollShadow,
-  Spacer,
-  useDisclosure,
-} from "@heroui/react";
+import { Button, ScrollShadow, Spacer, useDisclosure } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,6 +9,7 @@ import { useRouter } from "next/navigation";
 import SidebarDrawer from "./sidebar-drawer";
 import { sectionItemsWithTeams } from "./sidebar-items";
 import Sidebar from "./sidebar";
+import TeamAvatar from "./team-avatar";
 
 import { AuthService } from "@/services";
 import { useUser } from "@/contexts/user";
@@ -56,17 +51,13 @@ export default function Component() {
         <div className="flex items-center justify-center w-8 h-8 rounded-full">
           <Image alt="logo" height={40} src="/logo192.png" width={40} />
         </div>
-        <span className="font-bold text-small text-foreground">
+        <span className="font-medium text-md text-foreground">
           MyTripAssistant B2B
         </span>
       </div>
       <Spacer y={8} />
       <div className="flex items-center gap-3 px-3">
-        <Avatar
-          isBordered
-          size="sm"
-          src="https://i.pravatar.cc/150?u=a04258114e29026708c"
-        />
+        <TeamAvatar isBordered name={`${user?.firstName} ${user?.lastName}`} />
         <div className="flex flex-col">
           <p className="font-medium text-small text-default-600">
             {user?.firstName} {user?.lastName}
@@ -142,7 +133,7 @@ export default function Component() {
               width={24}
             />
           </Button>
-          <h2 className="font-medium text-medium text-default-700">Overview</h2>
+          <h2 className="font-medium text-medium text-default-700">Dashboard</h2>
         </header>
         <main className="w-full h-full mt-4 overflow-visible">
           <div className="flex h-[90%] w-full flex-col gap-4 rounded-medium border-small border-divider" />
