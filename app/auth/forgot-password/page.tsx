@@ -22,8 +22,7 @@ export default function Page() {
     mode: "all",
     resolver: zodResolver(forgotPasswordFormSchema),
     defaultValues: {
-      // email: "",
-      email: "tarekhammamix01@gmail.com",
+      email: "",
     },
   });
   const [isLoading, setIsLoading] = React.useState(false);

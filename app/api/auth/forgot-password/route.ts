@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const resetPasswordToken = uuidv4();
+    const resetPasswordToken = `${uuidv4()}-${crypto.randomBytes(64).toString("base64url")}`;
 
     await prisma.token.upsert({
       where: {

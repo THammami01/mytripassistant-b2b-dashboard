@@ -26,7 +26,7 @@ const resetPasswordBlock = `
                                       "
                                     >
                                       <br />We received a request to reset your
-                                      password.<br />Let's get you a new one!<br /><br />
+                                      password.<br />Let's get you a new one!<br />This link is valid for one hour only.<br /><br />
                                     </p>
                                     <a
                                       href="$__RESET_PASSWORD_URL__"

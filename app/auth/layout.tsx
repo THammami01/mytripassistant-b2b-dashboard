@@ -37,8 +37,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           style={{
             backgroundImage:
               // "url(https://images.unsplash.com/photo-1460904041914-f2b315f93560?q=80&w=3088&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
-              "url(https://images.unsplash.com/photo-1500835556837-99ac94a94552?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
-            backgroundSize: "cover",
+              // "url(https://images.unsplash.com/photo-1500835556837-99ac94a94552?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+              "url(https://res.cloudinary.com/dgihbgsnz/image/upload/v1740195703/mytripassistant/mytripassistant-auth-module-bg_hotxl4.avif)",
+              backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >

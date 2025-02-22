@@ -33,12 +33,14 @@ export default function Page() {
     },
   });
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isUIReady, setIsUIReady] = React.useState(false);
+  const [resetPasswordToken, setResetPasswordToken] = React.useState<
+    string | null
+  >(null);
 
   React.useEffect(() => {
     const token = new URLSearchParams(window.location.search).get("token");
 
-    if (token) setIsUIReady(true);
+    if (token) setResetPasswordToken(token);
     else {
       toast.error("Reset password token is either invalid or not found.");
       redirect("/");
@@ -65,7 +67,11 @@ export default function Page() {
 
     setIsLoading(true);
 
-    AuthService.resetPassword({ password: data.password, reCaptchaToken })
+    AuthService.resetPassword({
+      password: data.password,
+      resetPasswordToken: resetPasswordToken!,
+      reCaptchaToken,
+    })
       .then((_res) => {
         toast.success("Password reset successfully.");
         router.push("/dashboard");
@@ -81,7 +87,7 @@ export default function Page() {
 
   return (
     <div className="flex items-center justify-center w-full bg-background lg:w-1/2">
-      {!isUIReady && (
+      {!resetPasswordToken && (
         <div className="flex flex-col items-center w-full max-w-sm gap-4 p-4">
           <Skeleton className="w-full h-4 rounded-lg" />
           <Skeleton className="w-full h-3 rounded-lg" />
@@ -92,7 +98,7 @@ export default function Page() {
         </div>
       )}
 
-      {isUIReady && (
+      {resetPasswordToken && (
         <div className="flex flex-col items-center w-full max-w-sm gap-4 p-4">
           <div className="w-full text-left">
             <p className="pb-2 text-xl font-medium">Reset Password</p>
