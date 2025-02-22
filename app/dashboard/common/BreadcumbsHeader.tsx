@@ -4,7 +4,7 @@ import { Breadcrumbs, BreadcrumbItem, cn } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-import { sectionItemsWithTeams } from "./sidebar-items";
+import sidebarItems from "./sidebar-items";
 
 export default function BreadcumbsHeader() {
   const router = useRouter();
@@ -14,7 +14,7 @@ export default function BreadcumbsHeader() {
 
   const getItemName = (name: string, index: number) => {
     if (index === 2 && pathname.startsWith("/dashboard/apps/")) {
-      return sectionItemsWithTeams
+      return sidebarItems
         .find((item) => item.key === "your-apps")
         ?.items?.find((item) => item.key.endsWith(name))?.title;
     }

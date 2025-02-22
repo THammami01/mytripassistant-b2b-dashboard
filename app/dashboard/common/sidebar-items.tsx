@@ -2,10 +2,10 @@
 
 import { Icon } from "@iconify/react";
 
-import { type SidebarItem } from "./sidebar";
-import TeamAvatar from "./team-avatar";
+import { type SidebarItem } from "./Sidebar";
+import TeamAvatar from "./TeamAvatar";
 
-export const sectionItems: SidebarItem[] = [
+const sidebarItems: SidebarItem[] = [
   {
     key: "/dashboard",
     title: "Dashboard",
@@ -43,10 +43,6 @@ export const sectionItems: SidebarItem[] = [
       },
     ],
   },
-];
-
-export const sectionItemsWithTeams: SidebarItem[] = [
-  ...sectionItems,
   {
     key: "your-apps",
     title: "Your Apps",
@@ -72,3 +68,5 @@ export const sectionItemsWithTeams: SidebarItem[] = [
     ],
   },
 ];
+
+export default sidebarItems;

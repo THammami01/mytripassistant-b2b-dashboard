@@ -7,11 +7,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
-import SidebarDrawer from "./sidebar-drawer";
-import { sectionItemsWithTeams } from "./sidebar-items";
-import Sidebar from "./sidebar";
-import TeamAvatar from "./team-avatar";
-import BreadcumbsHeader from "./breadcumbs-header";
+import SidebarDrawer from "./SidebarDrawer";
+import sectionItems from "./sidebar-items";
+import Sidebar from "./Sidebar";
+import TeamAvatar from "./TeamAvatar";
+import BreadcumbsHeader from "./BreadcumbsHeader";
 
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { AuthService } from "@/services";
@@ -70,7 +70,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
       <ScrollShadow className="h-full max-h-full py-6 pr-6 -mr-6">
         <Sidebar
           defaultSelectedKey="home"
-          items={sectionItemsWithTeams}
+          items={sectionItems}
           selectedKeys={[pathname]}
         />
       </ScrollShadow>

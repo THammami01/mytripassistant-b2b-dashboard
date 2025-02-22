@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 
 import { getUser } from "../actions/dashboard/getUser";
 
-import SubLayout from "./sub-layout";
+import SubLayout from "./common/SubLayout";
 
 import { UserProvider, User } from "@/contexts/user";
 
