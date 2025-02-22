@@ -1,4 +1,8 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["mytripassistant", "FIRSTNAME"]
+  "cSpell.words": [
+    "FIRSTNAME",
+    "lastname",
+    "mytripassistant"
+  ]
 }
