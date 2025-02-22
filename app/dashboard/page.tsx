@@ -14,6 +14,8 @@ import TeamAvatar from "./team-avatar";
 import { AuthService } from "@/services";
 import { useUser } from "@/contexts/user";
 
+import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
+
 /**
  * 💡 TIP: You can use the usePathname hook from Next.js App Router to get the current pathname
  * and use it as the active key for the Sidebar component.
@@ -45,6 +47,11 @@ export default function Component() {
     }
   };
 
+  const name =
+    user?.firstName && user?.lastName
+      ? `${user?.firstName} ${user?.lastName}`
+      : "";
+
   const content = (
     <div className="relative flex flex-col flex-1 h-full p-6 w-72">
       <div className="flex items-center gap-2 px-2">
@@ -57,10 +64,10 @@ export default function Component() {
       </div>
       <Spacer y={8} />
       <div className="flex items-center gap-3 px-3">
-        <TeamAvatar isBordered name={`${user?.firstName} ${user?.lastName}`} />
+        <TeamAvatar isBordered name={name} />
         <div className="flex flex-col">
-          <p className="font-medium text-small text-default-600">
-            {user?.firstName} {user?.lastName}
+          <p className="w-[10rem] font-medium truncate text-small text-default-600">
+            {name || user?.email}
           </p>
           <p className="text-tiny text-default-400">Admin</p>
         </div>
@@ -133,7 +140,11 @@ export default function Component() {
               width={24}
             />
           </Button>
-          <h2 className="font-medium text-medium text-default-700">Dashboard</h2>
+          <Breadcrumbs size="lg">
+            <BreadcrumbItem>Dashboard</BreadcrumbItem>
+            <BreadcrumbItem>Apps</BreadcrumbItem>
+            <BreadcrumbItem>App 01</BreadcrumbItem>
+          </Breadcrumbs>
         </header>
         <main className="w-full h-full mt-4 overflow-visible">
           <div className="flex h-[90%] w-full flex-col gap-4 rounded-medium border-small border-divider" />

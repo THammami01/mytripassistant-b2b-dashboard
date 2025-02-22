@@ -26,10 +26,8 @@ export default function Page() {
     mode: "all",
     resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: {
-      // password: "",
-      // confirmedPassword: "",
-      password: "Hello1234@",
-      confirmedPassword: "Hello1234@",
+      password: "",
+      confirmedPassword: "",
     },
   });
   const [isLoading, setIsLoading] = React.useState(false);

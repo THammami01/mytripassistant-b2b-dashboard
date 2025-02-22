@@ -14,13 +14,13 @@ export const sectionItems: SidebarItem[] = [
     items: [
       {
         key: "home",
-        href: "#",
+        href: "/dashboard/home",
         icon: "solar:home-2-linear",
         title: "Home",
       },
       {
         key: "apps",
-        href: "#",
+        href: "/dashboard/apps",
         icon: "solar:widget-2-outline",
         title: "Apps",
         endContent: (
@@ -33,13 +33,13 @@ export const sectionItems: SidebarItem[] = [
       },
       {
         key: "performance",
-        href: "#",
+        href: "/dashboard/performance",
         icon: "solar:chart-outline",
         title: "Performance",
       },
       {
         key: "settings",
-        href: "/settings",
+        href: "/dashboard/settings",
         icon: "solar:settings-outline",
         title: "Settings",
       },
@@ -55,19 +55,19 @@ export const sectionItemsWithTeams: SidebarItem[] = [
     items: [
       {
         key: "app-01",
-        href: "#",
+        href: "/dashboard/apps/d8f3b9e2-7c5a-4b1d-9f3e-8c6d2a4b5c9a",
         title: "App 01",
         startContent: <TeamAvatar name="App 01" />,
       },
       {
         key: "app-02",
-        href: "#",
+        href: "/dashboard/apps/d8f3b9e2-7c5a-4b1d-9f3e-8c6d2a4b5c9b",
         title: "App 02",
         startContent: <TeamAvatar name="App 02" />,
       },
       {
         key: "app-03",
-        href: "#",
+        href: "/dashboard/apps/d8f3b9e2-7c5a-4b1d-9f3e-8c6d2a4b5c9c",
         title: "App 03",
         startContent: <TeamAvatar name="App 03" />,
       },
