@@ -5,6 +5,7 @@ import { Button, ScrollShadow, Spacer, useDisclosure } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 
 import SidebarDrawer from "./sidebar-drawer";
 import { sectionItemsWithTeams } from "./sidebar-items";
@@ -14,7 +15,6 @@ import TeamAvatar from "./team-avatar";
 import { AuthService } from "@/services";
 import { useUser } from "@/contexts/user";
 
-import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 
 /**
  * 💡 TIP: You can use the usePathname hook from Next.js App Router to get the current pathname
@@ -76,7 +76,7 @@ export default function Component() {
       <Spacer y={8} />
 
       <ScrollShadow className="h-full max-h-full py-6 pr-6 -mr-6">
-        <Sidebar defaultSelectedKey="home" items={sectionItemsWithTeams} />
+        <Sidebar defaultSelectedKey="dashboard" items={sectionItemsWithTeams} />
       </ScrollShadow>
 
       <Spacer y={8} />
