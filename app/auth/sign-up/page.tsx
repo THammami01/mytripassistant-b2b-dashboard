@@ -27,12 +27,9 @@ export default function Page() {
     mode: "all",
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
-      // email: "",
-      // password: "",
-      // confirmedPassword: "",
-      email: "hello@gmail.com",
-      password: "Hello1234@",
-      confirmedPassword: "Hello1234@",
+      email: "",
+      password: "",
+      confirmedPassword: "",
       agreeWithTermsAndPrivacy: false,
     },
   });

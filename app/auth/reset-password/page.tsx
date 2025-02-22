@@ -8,11 +8,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 import { resetPasswordFormSchema, ResetPasswordFormType } from "./types";
 
+import { AuthService } from "@/services";
+
 export default function Page() {
+  const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
   const {
@@ -25,10 +28,11 @@ export default function Page() {
     defaultValues: {
       // password: "",
       // confirmedPassword: "",
-      password: "password",
-      confirmedPassword: "password",
+      password: "Hello1234@",
+      confirmedPassword: "Hello1234@",
     },
   });
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isUIReady, setIsUIReady] = React.useState(false);
 
   React.useEffect(() => {
@@ -47,19 +51,32 @@ export default function Page() {
   const onSubmit = async (data: ResetPasswordFormType) => {
     if (data.password !== data.confirmedPassword) {
       toast.error("Passwords do not match.");
+
       return;
     }
 
     if (!executeRecaptcha) {
       toast.error("Google reCAPTCHA is not available.");
+
       return;
     }
 
-    const reCaptchaToken = await executeRecaptcha("resetPassword");
+    const reCaptchaToken = await executeRecaptcha("forgotPassword");
 
-    console.log(data, reCaptchaToken);
+    setIsLoading(true);
 
-    toast("Password reset is not implemented yet.");
+    AuthService.resetPassword({ password: data.password, reCaptchaToken })
+      .then((_res) => {
+        toast.success("Password reset successfully.");
+        router.push("/dashboard");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -122,7 +139,8 @@ export default function Page() {
             <Button
               className="w-full"
               color="primary"
-              isDisabled={!isValid}
+              isDisabled={!isValid || isLoading}
+              isLoading={isLoading}
               type="submit"
             >
               Reset Password

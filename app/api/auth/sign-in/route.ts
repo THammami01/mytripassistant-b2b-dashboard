@@ -40,15 +40,17 @@ export async function POST(req: Request) {
     return NextResponse.json({
       user: userWithoutSensitiveData,
     });
-  } catch (error: any) {
-    if (error instanceof z.ZodError) {
-      const errorMessages = error.errors
+  } catch (err: any) {
+    console.log(err);
+
+    if (err instanceof z.ZodError) {
+      const errorMessages = err.errors
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join(", ");
 
       return NextResponse.json({ error: errorMessages }, { status: 400 });
     }
 
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return NextResponse.json({ error: err.message }, { status: 400 });
   }
 }

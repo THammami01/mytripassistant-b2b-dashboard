@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 
 import { forgotPasswordFormSchema, ForgotPasswordFormType } from "./types";
 
+import { AuthService } from "@/services";
+
 export default function Page() {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const {
@@ -21,9 +23,11 @@ export default function Page() {
     resolver: zodResolver(forgotPasswordFormSchema),
     defaultValues: {
       // email: "",
-      email: "hello@gmail.com",
+      email: "tarekhammamix01@gmail.com",
     },
   });
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isUIBlocked, setIsUIBlocked] = React.useState(false);
 
   const onSubmit = async (data: ForgotPasswordFormType) => {
     if (!executeRecaptcha) {
@@ -33,9 +37,23 @@ export default function Page() {
 
     const reCaptchaToken = await executeRecaptcha("forgotPassword");
 
-    console.log(data, reCaptchaToken);
+    setIsLoading(true);
 
-    toast("Password reset is not implemented yet.");
+    AuthService.forgotPassword({ ...data, reCaptchaToken })
+      .then((_res) => {
+        toast.success(
+          "Reset password link sent successfully. Please check your mailbox."
+        );
+
+        setIsUIBlocked(true);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -59,14 +77,16 @@ export default function Page() {
             type="email"
             variant="flat"
             {...register("email")}
+            isDisabled={isUIBlocked}
           />
           <Button
             className="w-full"
             color="primary"
-            isDisabled={!isValid}
+            isDisabled={!isValid || isLoading || isUIBlocked}
+            isLoading={isLoading}
             type="submit"
           >
-            Send Reset Link
+            {isUIBlocked ? "Link Sent. Please check your mailbox." : "Send Reset Link"}
           </Button>
         </form>
 

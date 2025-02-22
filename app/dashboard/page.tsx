@@ -16,8 +16,8 @@ export default function Dashboard() {
     try {
       setIsLoading(true);
       await AuthService.signOut();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     } finally {
       setIsLoading(false);
       router.push("/auth/sign-in");

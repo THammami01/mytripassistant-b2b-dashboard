@@ -24,8 +24,8 @@ export async function GET(
     };
 
     return NextResponse.json(userWithoutSensitiveData);
-  } catch (error: any) {
-    console.error(error);
+  } catch (err: any) {
+    console.error(err);
 
     return NextResponse.json(
       { error: "Internal server error" },

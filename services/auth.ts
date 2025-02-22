@@ -57,7 +57,7 @@ export const AuthService = {
   },
 
   async forgotPassword(data: ForgotPasswordFormType) {
-    const response = await fetch("/api/auth/forget-password", {
+    const response = await fetch("/api/auth/forgot-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -73,7 +73,7 @@ export const AuthService = {
     return response.json();
   },
 
-  async resetPassword(data: ResetPasswordFormType) {
+  async resetPassword(data: Omit<ResetPasswordFormType, "confirmedPassword">) {
     const response = await fetch("/api/auth/reset-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

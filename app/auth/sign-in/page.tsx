@@ -27,10 +27,8 @@ export default function Page() {
     mode: "all",
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
-      // email: "",
-      // password: "",
-      email: "hello@gmail.com",
-      password: "Hello1234@",
+      email: "",
+      password: "",
       rememberMe: false,
     },
   });
@@ -50,11 +48,7 @@ export default function Page() {
 
     setIsLoading(true);
 
-    AuthService.signIn({
-      email: data.email,
-      password: data.password,
-      reCaptchaToken,
-    })
+    AuthService.signIn({ ...data, reCaptchaToken })
       .then((_res) => {
         toast.success("Signed in successfully.");
         router.push("/dashboard");

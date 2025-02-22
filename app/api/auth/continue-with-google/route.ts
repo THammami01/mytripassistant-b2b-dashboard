@@ -86,9 +86,11 @@ export async function POST(req: Request) {
         { status: 201 }
       );
     }
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      const errorMessages = error.errors
+  } catch (err) {
+    console.log(err);
+
+    if (err instanceof z.ZodError) {
+      const errorMessages = err.errors
         .map((e) => `${e.path.join(".")}: ${e.message}`)
         .join(", ");
 
