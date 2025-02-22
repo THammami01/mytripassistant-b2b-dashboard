@@ -2,6 +2,8 @@ import { headers } from "next/headers";
 
 import { getUser } from "../actions/dashboard/getUser";
 
+import SubLayout from "./sub-layout";
+
 import { UserProvider, User } from "@/contexts/user";
 
 export default async function DashboardLayout({
@@ -15,7 +17,9 @@ export default async function DashboardLayout({
 
   return (
     <UserProvider initialUser={user as User}>
-      <div className="flex min-h-screen">{children}</div>
+      <div className="flex min-h-screen">
+        <SubLayout>{children}</SubLayout>
+      </div>
     </UserProvider>
   );
 }

@@ -3,23 +3,19 @@ import { Icon } from "@iconify/react";
 import { type SidebarItem } from "./sidebar";
 import TeamAvatar from "./team-avatar";
 
-/**
- * Please check the https://heroui.com/docs/guide/routing to have a seamless router integration
- */
-
 export const sectionItems: SidebarItem[] = [
   {
-    key: "dashboard",
+    key: "/dashboard",
     title: "Dashboard",
     items: [
       {
-        key: "home",
+        key: "/dashboard/home",
         href: "/dashboard/home",
         icon: "solar:home-2-linear",
         title: "Home",
       },
       {
-        key: "apps",
+        key: "/dashboard/apps",
         href: "/dashboard/apps",
         icon: "solar:widget-2-outline",
         title: "Apps",
@@ -32,13 +28,13 @@ export const sectionItems: SidebarItem[] = [
         ),
       },
       {
-        key: "performance",
+        key: "/dashboard/performance",
         href: "/dashboard/performance",
         icon: "solar:chart-outline",
         title: "Performance",
       },
       {
-        key: "settings",
+        key: "/dashboard/settings",
         href: "/dashboard/settings",
         icon: "solar:settings-outline",
         title: "Settings",
@@ -54,20 +50,20 @@ export const sectionItemsWithTeams: SidebarItem[] = [
     title: "Your Apps",
     items: [
       {
-        key: "app-01",
-        href: "/dashboard/apps/d8f3b9e2-7c5a-4b1d-9f3e-8c6d2a4b5c9a",
+        key: "/dashboard/apps/82669756-b58d-4db1-8756-f7a15ff71004",
+        href: "/dashboard/apps/82669756-b58d-4db1-8756-f7a15ff71004",
         title: "App 01",
         startContent: <TeamAvatar name="App 01" />,
       },
       {
-        key: "app-02",
-        href: "/dashboard/apps/d8f3b9e2-7c5a-4b1d-9f3e-8c6d2a4b5c9b",
+        key: "/dashboard/apps/18024247-6d10-42cc-8cad-5186fc9604bf",
+        href: "/dashboard/apps/18024247-6d10-42cc-8cad-5186fc9604bf",
         title: "App 02",
         startContent: <TeamAvatar name="App 02" />,
       },
       {
-        key: "app-03",
-        href: "/dashboard/apps/d8f3b9e2-7c5a-4b1d-9f3e-8c6d2a4b5c9c",
+        key: "/dashboard/apps/94297250-2838-4e81-bd3e-a0832d2ce8a7",
+        href: "/dashboard/apps/94297250-2838-4e81-bd3e-a0832d2ce8a7",
         title: "App 03",
         startContent: <TeamAvatar name="App 03" />,
       },

@@ -11,6 +11,7 @@ import React from "react";
 import { Listbox, Tooltip, ListboxItem, ListboxSection } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { cn } from "@heroui/react";
+import { useRouter } from "next/navigation";
 
 export enum SidebarItemType {
   Nest = "nest",
@@ -56,6 +57,7 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
     },
     ref
   ) => {
+    const router = useRouter();
     const [selected, setSelected] =
       React.useState<React.Key>(defaultSelectedKey);
 
@@ -218,6 +220,7 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
             endContent={
               isCompact || hideEndContent ? null : (item.endContent ?? null)
             }
+            href={undefined}
             startContent={
               isCompact ? null : item.icon ? (
                 <Icon
@@ -234,6 +237,7 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
             }
             textValue={item.title}
             title={isCompact ? null : item.title}
+            onPress={() => router.push(item.href!)}
           >
             {isCompact ? (
               <Tooltip content={item.title} placement="right">
