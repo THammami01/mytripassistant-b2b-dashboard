@@ -5,7 +5,7 @@ import { Divider, User } from "@heroui/react";
 import Image from "next/image";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
-import { GOOGLE_RECAPTCHA_V3_SITE_KEY } from "@/config/constants";
+import { GOOGLE_RECAPTCHA_V3_SITE_KEY } from "@/config/public-constants";
 import { ThemeSwitch } from "@/components";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

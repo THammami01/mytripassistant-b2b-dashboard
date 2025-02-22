@@ -9,7 +9,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 
-import { GOOGLE_CLIENT_ID } from "@/config/constants";
+import { GOOGLE_CLIENT_ID } from "@/config/public-constants";
 
 export interface ProvidersProps {
   children: React.ReactNode;

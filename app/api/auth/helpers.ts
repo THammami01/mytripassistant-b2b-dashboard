@@ -3,7 +3,10 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-import { JWT_SECRET, GOOGLE_RECAPTCHA_V3_SECRET_KEY } from "@/config/constants";
+import {
+  JWT_SECRET,
+  GOOGLE_RECAPTCHA_V3_SECRET_KEY,
+} from "@/config/server-constants";
 
 const encodedKey = new TextEncoder().encode(JWT_SECRET);
 

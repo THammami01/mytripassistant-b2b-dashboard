@@ -1,9 +1,3 @@
-// CLIENT SIDE CONSTANTS
-export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!;
-export const GOOGLE_RECAPTCHA_V3_SITE_KEY =
-  process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3_SITE_KEY!;
-
-// SERVER SIDE CONSTANTS
 export const JWT_SECRET = process.env.JWT_SECRET!;
 export const AES_CRYPTO_KEY = process.env.AES_CRYPTO_KEY!;
 
@@ -18,3 +12,5 @@ export const GOOGLE_RECAPTCHA_V3_SECRET_KEY =
 export const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS!;
 export const EMAIL_HOST = process.env.EMAIL_HOST!;
 export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD!;
+
+export const RESEND_API_KEY = process.env.RESEND_API_KEY!;

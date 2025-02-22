@@ -42,6 +42,7 @@ export default function Page() {
   const onSubmit = async (data: SignInFormType) => {
     if (!executeRecaptcha) {
       toast.error("Google reCAPTCHA is not available.");
+
       return;
     }
 
@@ -54,7 +55,7 @@ export default function Page() {
       password: data.password,
       reCaptchaToken,
     })
-      .then((res) => {
+      .then((_res) => {
         toast.success("Signed in successfully.");
         router.push("/dashboard");
       })

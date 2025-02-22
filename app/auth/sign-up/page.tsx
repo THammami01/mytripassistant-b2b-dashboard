@@ -61,7 +61,7 @@ export default function Page() {
       password: data.password,
       reCaptchaToken,
     })
-      .then((res) => {
+      .then((_res) => {
         toast.success("Account created successfully.");
         router.push("/dashboard");
       })
