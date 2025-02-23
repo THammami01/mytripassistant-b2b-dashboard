@@ -25,7 +25,7 @@ export default function Page() {
       <div>
         <p className="text-base font-medium text-default-700">Theme</p>
         <p className="mt-1 text-sm font-normal text-default-400">
-          Change the appearance of the app.
+          Change the appearance of the platform.
         </p>
         {/* Theme radio group */}
         <RadioGroup

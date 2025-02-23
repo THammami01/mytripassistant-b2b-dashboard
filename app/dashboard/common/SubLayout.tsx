@@ -20,6 +20,7 @@ import Sidebar from "./Sidebar";
 import sidebarItems from "./sidebar-items";
 import BreadcumbsHeader from "./BreadcumbsHeader";
 import TeamAvatar from "./TeamAvatar";
+import CustomAlert from "./CustomAlert";
 
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { AuthService } from "@/services";
@@ -33,6 +34,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
   const { user } = useUser();
   const [isLoading, setIsLoading] = React.useState(false);
   const pathname = usePathname();
+  const alertRef = React.useRef<HTMLDivElement>(null);
 
   const getPaths = () => {
     const pathSegments = pathname.split("/").filter(Boolean);
@@ -260,6 +262,35 @@ export default function SubLayout({ children }: PropsWithChildren) {
 
       {/*  Settings Content */}
       <ScrollShadow className="w-full h-full">
+        {!pathname.startsWith("/dashboard/settings") && (
+          <CustomAlert
+            ref={alertRef}
+            className="mt-4"
+            color="default"
+            title="Please start by filling in basic information about your company in order to have access to the full functionality of the platform."
+          >
+            <div className="flex items-center gap-1 mt-3">
+              <Button
+                className="font-medium bg-background text-default-700 border-1 shadow-small"
+                size="sm"
+                variant="bordered"
+                onPress={() =>
+                  router.push("/dashboard/settings/basic-information")
+                }
+              >
+                Go to settings
+              </Button>
+              {/* <Button
+                className="font-medium underline text-default-500 underline-offset-4"
+                size="sm"
+                variant="light"
+              >
+                Maybe later
+              </Button> */}
+            </div>
+          </CustomAlert>
+        )}
+
         <div className="flex-1 w-full p-4">
           {/* Title */}
           <div className="flex items-center mt-4 gap-x-3">

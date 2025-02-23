@@ -19,7 +19,7 @@ export default function BreadcumbsHeader() {
         ?.items?.find((item) => item.key.endsWith(name))?.title;
     }
 
-    return name;
+    return name.replace(/-/g, " ");
   };
 
   return (
