@@ -7,20 +7,53 @@ import {
   Input,
   Autocomplete,
   AutocompleteItem,
-  Form,
 } from "@heroui/react";
-import { Icon } from "@iconify/react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import countries from "./countries";
+import { basicInformationFormSchema, BasicInformationFormType } from "./types";
+
+import { DashboardService } from "@/services";
 
 export default function Page() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<BasicInformationFormType>({
+    mode: "all",
+    resolver: zodResolver(basicInformationFormSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      companyName: "",
+      taxId: "",
+      address: "",
+      state: "",
+      zipCode: "",
+      country: "",
+      phoneNumber: "",
+      website: "",
+    },
+  });
+  const [isLoading, setIsLoading] = React.useState(false);
 
-    const formData = new FormData(event.target as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries());
+  const onSubmit = (data: BasicInformationFormType) => {
+    setIsLoading(true);
 
-    console.log(data);
+    DashboardService.changeBasicInformation(data)
+      .then((_res) => {
+        toast.success("Basic information updated successfully.");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -33,69 +66,81 @@ export default function Page() {
           Manage your profile information and company details.
         </p>
 
-        <Form
-          className="mt-5"
-          validationBehavior="native"
-          onSubmit={handleSubmit}
-        >
+        <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
             {/* First Name */}
             <Input
               isRequired
+              description={errors?.firstName?.message}
               label="Firstname"
               labelPlacement="outside"
               placeholder="Enter firstname"
+              {...register("firstName")}
             />
             {/* Last Name */}
             <Input
               isRequired
+              description={errors?.lastName?.message}
               label="Lastname"
               labelPlacement="outside"
               placeholder="Enter lastname"
+              {...register("lastName")}
             />
             {/* Company Name */}
             <Input
               isRequired
+              description={errors?.companyName?.message}
               label="Company Name"
               labelPlacement="outside"
               placeholder="Enter company name"
+              {...register("companyName")}
             />
             {/* Tax ID */}
             <Input
               isRequired
+              description={errors?.taxId?.message}
               label="Tax ID"
               labelPlacement="outside"
               placeholder="Enter tax ID"
+              {...register("taxId")}
             />
             {/* Address */}
             <Input
               isRequired
+              description={errors?.address?.message}
               label="Address"
               labelPlacement="outside"
               placeholder="Enter address"
+              {...register("address")}
             />
             {/* State */}
             <Input
               isRequired
+              description={errors?.state?.message}
               label="State"
               labelPlacement="outside"
               placeholder="Enter state"
+              {...register("state")}
             />
             {/* Zip Code */}
             <Input
               isRequired
+              description={errors?.zipCode?.message}
               label="Zip Code"
               labelPlacement="outside"
               placeholder="Enter zip code"
+              {...register("zipCode")}
             />
             {/* Country */}
             <Autocomplete
               isRequired
               defaultItems={countries}
+              description={errors?.country?.message}
               label="Country"
               labelPlacement="outside"
               placeholder="Select country"
               showScrollIndicators={false}
+              {...register("country")}
             >
               {(item) => (
                 <AutocompleteItem
@@ -115,13 +160,16 @@ export default function Page() {
             {/* Phone Number */}
             <Input
               isRequired
+              description={errors?.phoneNumber?.message}
               label="Phone Number"
               labelPlacement="outside"
               placeholder="Enter phone number"
+              {...register("phoneNumber")}
             />
             {/* Website */}
             <Input
               isRequired
+              description={errors?.website?.message}
               label="Website"
               labelPlacement="outside"
               placeholder="mytripassistant.com"
@@ -131,18 +179,22 @@ export default function Page() {
                 </div>
               }
               type="url"
+              {...register("website")}
             />
           </div>
 
           <div className="flex w-full gap-2 mt-3">
-            {/* <Button radius="full" variant="bordered">
-              Cancel
-            </Button> */}
-            <Button color="success" radius="full" type="submit">
+            <Button
+              color="success"
+              isDisabled={!isValid || isLoading}
+              isLoading={isLoading}
+              radius="full"
+              type="submit"
+            >
               Save Changes
             </Button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );

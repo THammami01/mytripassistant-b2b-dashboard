@@ -4,7 +4,7 @@ import { type ForgotPasswordFormType } from "@/app/auth/forgot-password";
 import { type ResetPasswordFormType } from "@/app/auth/reset-password";
 import { type ContinueWithGoogleFormType } from "@/app/auth/common";
 
-export const AuthService = {
+const AuthService = {
   async signUp(
     data: Omit<SignUpFormType, "confirmedPassword" | "agreeWithTermsAndPrivacy">
   ) {
@@ -106,17 +106,6 @@ export const AuthService = {
 
     return response.json();
   },
-
-  async getUser(userId: string) {
-    const response = await fetch(`/api/auth/user/${userId}`);
-
-    if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
-
-      throw new Error(`Get user failed. ${error.error}.`);
-    }
-
-    return response.json();
-  },
 };
+
+export default AuthService;

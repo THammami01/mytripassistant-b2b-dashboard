@@ -8,14 +8,19 @@ export async function middleware(req: NextRequest) {
   const session = req.cookies.get("session")?.value;
   const isAuthPage = req.nextUrl.pathname.startsWith("/auth");
   const isDashboardPage = req.nextUrl.pathname.startsWith("/dashboard");
+  const isApiDashboardRoute = req.nextUrl.pathname.startsWith("/api/dashboard");
 
   // If user is authenticated and tries to access auth pages, redirect to dashboard
-  if (isAuthPage && session) {
+  if (isAuthPage) {
+    if (!session) return NextResponse.next();
+
     const payload = await verifyJwtToken(session);
 
     if (payload && new Date(payload.expiresAt as Date) > new Date()) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
+
+    return NextResponse.next();
   }
 
   // If user tries to access dashboard without auth, redirect to sign in
@@ -43,9 +48,33 @@ export async function middleware(req: NextRequest) {
     });
   }
 
+  // If user tries to access dashboard API routes without auth, return 401
+  if (isApiDashboardRoute) {
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const payload = await verifyJwtToken(session);
+
+    if (
+      !payload ||
+      !payload.userId ||
+      !payload.exp ||
+      payload.exp * 1000 < Date.now()
+    ) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const response = NextResponse.next();
+
+    response.headers.set("x-user-id", payload.userId.toString());
+
+    return response;
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/auth/:path*", "/dashboard/:path*"],
+  matcher: ["/auth/:path*", "/dashboard/:path*", "/api/dashboard/:path*"],
 };
