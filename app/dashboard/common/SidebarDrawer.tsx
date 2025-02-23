@@ -98,7 +98,7 @@ const SidebarDrawer = React.forwardRef<
         </Drawer>
         <div
           className={cn(
-            "hidden h-full max-w-[var(--sidebar-width)] overflow-x-hidden overflow-y-auto sm:flex",
+            "hidden h-full max-w-[var(--sidebar-width)] overflow-x-hidden overflow-y-scroll sm:flex",
             className
           )}
         >

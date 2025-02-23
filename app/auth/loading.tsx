@@ -1,5 +1,5 @@
 import Loading from "@/components/Loading";
 
 export default function AuthLoading() {
-  return <Loading />;
+  return <Loading className="lg:w-1/2" />;
 }

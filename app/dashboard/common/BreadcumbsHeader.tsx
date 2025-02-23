@@ -23,7 +23,12 @@ export default function BreadcumbsHeader() {
   };
 
   return (
-    <Breadcrumbs size="lg">
+    <Breadcrumbs
+      itemClasses={{
+        item: "text-xl",
+        separator: "text-xl",
+      }}
+    >
       {pathnames.map((name, index) => {
         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
 

@@ -1,5 +1,5 @@
 "use client";
 
 export default function Page() {
-  return <div className="p-4">Performance</div>;
+  return <div>Performance</div>;
 }
