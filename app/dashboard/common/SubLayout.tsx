@@ -261,15 +261,15 @@ export default function SubLayout({ children }: PropsWithChildren) {
       </SidebarDrawer>
 
       {/*  Settings Content */}
-      <ScrollShadow className="w-full h-full">
-        {!pathname.startsWith("/dashboard/settings") && (
-          <CustomAlert
-            ref={alertRef}
-            className="mt-4"
-            color="default"
-            title="Please start by filling in basic information about your company in order to have access to the full functionality of the platform."
-          >
-            <div className="flex items-center gap-1 mt-3">
+      <ScrollShadow className="w-full h-full pb-8">
+        <CustomAlert
+          ref={alertRef}
+          className="mt-4"
+          color="default"
+          title="Please start by filling in basic information about you and your company in order to have access to the full functionality of the platform."
+        >
+          <div className="flex items-center gap-1 mt-3">
+            {!pathname.startsWith("/dashboard/settings") && (
               <Button
                 className="font-medium bg-background text-default-700 border-1 shadow-small"
                 size="sm"
@@ -280,16 +280,16 @@ export default function SubLayout({ children }: PropsWithChildren) {
               >
                 Go to settings
               </Button>
-              {/* <Button
+            )}
+            {/* <Button
                 className="font-medium underline text-default-500 underline-offset-4"
                 size="sm"
                 variant="light"
               >
                 Maybe later
               </Button> */}
-            </div>
-          </CustomAlert>
-        )}
+          </div>
+        </CustomAlert>
 
         <div className="flex-1 w-full p-4">
           {/* Title */}

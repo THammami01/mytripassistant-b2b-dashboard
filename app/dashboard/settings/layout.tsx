@@ -17,13 +17,13 @@ export default function SettingsLayout({
   return (
     <div className="flex flex-col w-full max-w-2xl gap-4">
       <h2 className="text-small text-default-500">
-        Customize settings, email preferences, and web appearance.
+        Manage your profile and company details, login credentials, and customize the platform appearance.
       </h2>
 
       <Tabs
         fullWidth
         classNames={{
-          base: "mt-6",
+          base: "mt-4",
           cursor: "bg-content1 dark:bg-content1",
           panel: "w-full p-0 pt-4",
         }}
