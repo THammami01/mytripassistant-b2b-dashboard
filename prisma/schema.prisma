@@ -38,7 +38,6 @@ model Token {
 model Company {
   id          String @id @default(uuid())
   name        String
-  taxId       String
   address     String
   state       String
   zipCode     String

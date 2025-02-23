@@ -9,7 +9,6 @@ export interface User {
   lastName?: string;
   company?: {
     name: string;
-    taxId: string;
     address: string;
     state: string;
     zipCode: string;

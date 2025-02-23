@@ -12,7 +12,7 @@ const resetPasswordBlock = `
                                         color: #2d3142;
                                       "
                                     >
-                                      Hi&nbsp;$__FIRSTNAME__,
+                                      $__GREETING__,
                                     </h3>
                                     <p
                                       style="

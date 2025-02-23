@@ -34,7 +34,6 @@ export default function Page() {
       firstName: "",
       lastName: "",
       companyName: "",
-      taxId: "",
       address: "",
       state: "",
       zipCode: "",
@@ -52,7 +51,6 @@ export default function Page() {
         firstName: user?.firstName || "",
         lastName: user?.lastName || "",
         companyName: user?.company?.name || "",
-        taxId: user?.company?.taxId || "",
         address: user?.company?.address || "",
         state: user?.company?.state || "",
         zipCode: user?.company?.zipCode || "",
@@ -98,18 +96,18 @@ export default function Page() {
             <Input
               isRequired
               description={errors?.firstName?.message}
-              label="Firstname"
+              label="First Name"
               labelPlacement="outside"
-              placeholder="Enter firstname"
+              placeholder="Enter first name"
               {...register("firstName")}
             />
             {/* Last Name */}
             <Input
               isRequired
               description={errors?.lastName?.message}
-              label="Lastname"
+              label="Last Name"
               labelPlacement="outside"
-              placeholder="Enter lastname"
+              placeholder="Enter last name"
               {...register("lastName")}
             />
             {/* Company Name */}
@@ -120,15 +118,6 @@ export default function Page() {
               labelPlacement="outside"
               placeholder="Enter company name"
               {...register("companyName")}
-            />
-            {/* Tax ID */}
-            <Input
-              isRequired
-              description={errors?.taxId?.message}
-              label="Tax ID"
-              labelPlacement="outside"
-              placeholder="Enter tax ID"
-              {...register("taxId")}
             />
             {/* Address */}
             <Input

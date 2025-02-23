@@ -52,7 +52,10 @@ export async function POST(req: Request) {
     const emailBody = globalHTMLTemplate
       .replace(/\$__SUBJECT__/g, emailSubject)
       .replace(/\$__CONTENT__/g, resetPasswordBlock)
-      .replace(/\$__FIRSTNAME__/g, user.firstName || "dear user")
+      .replace(
+        /\$__GREETING__/g,
+        user.firstName ? `Hi&nbsp;${user.firstName}` : "Hi"
+      )
       .replace(/\$__RESET_PASSWORD_URL__/g, resetPasswordUrl);
 
     await sendEmail(email, emailSubject, emailBody);

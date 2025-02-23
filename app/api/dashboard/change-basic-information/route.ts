@@ -26,7 +26,6 @@ export async function PUT(request: NextRequest) {
       where: { userId: id },
       update: {
         name: companyInformation.companyName,
-        taxId: companyInformation.taxId,
         address: companyInformation.address,
         state: companyInformation.state,
         zipCode: companyInformation.zipCode,
@@ -37,7 +36,6 @@ export async function PUT(request: NextRequest) {
       create: {
         userId: id,
         name: companyInformation.companyName,
-        taxId: companyInformation.taxId,
         address: companyInformation.address,
         state: companyInformation.state,
         zipCode: companyInformation.zipCode,
