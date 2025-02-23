@@ -40,7 +40,7 @@ const resetPasswordBlock = `
                                         font-size: 22px;
                                         padding: 15px 20px 15px 20px;
                                         display: block;
-                                        background: #7630f3;
+                                        background: #37AB31;
                                         border-radius: 30px;
                                         font-family: Imprima, Arial, sans-serif;
                                         font-weight: bold;
@@ -50,7 +50,7 @@ const resetPasswordBlock = `
                                         text-align: center;
                                         letter-spacing: 0;
                                         mso-padding-alt: 0;
-                                        mso-border-alt: 10px solid #7630f3;
+                                        mso-border-alt: 10px solid #37AB31;
                                         mso-hide: all;
                                         padding-left: 5px;
                                         padding-right: 5px;

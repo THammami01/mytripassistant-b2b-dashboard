@@ -142,7 +142,7 @@ export default function Page() {
             />
             <Button
               className="w-full"
-              color="primary"
+              color="success"
               isDisabled={!isValid || isLoading}
               isLoading={isLoading}
               type="submit"

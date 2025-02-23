@@ -24,7 +24,7 @@ export default function Error({
       <p className="text-center text-md text-default-500">
         The page you are looking for does not exist or has been moved.
       </p>
-      <Button color="primary" onPress={() => reset()}>
+      <Button color="success" onPress={() => reset()}>
         Try again
       </Button>
 

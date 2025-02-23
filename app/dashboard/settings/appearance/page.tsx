@@ -20,7 +20,7 @@ export default function Page() {
   }, [theme, isSSR]);
 
   return (
-    <div className="p-2">
+    <div className="flex flex-col gap-5 p-2">
       {/* Theme */}
       <div>
         <p className="text-base font-medium text-default-700">Theme</p>

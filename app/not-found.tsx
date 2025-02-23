@@ -14,7 +14,7 @@ export default function NotFound() {
       <p className="text-center text-md text-default-500">
         The page you are looking for does not exist or has been moved.
       </p>
-      <Button color="primary" onPress={() => router.push("/")}>
+      <Button color="success" onPress={() => router.push("/")}>
         Go to homepage
       </Button>
 

@@ -80,7 +80,7 @@ export default function Page() {
           />
           <Button
             className="w-full"
-            color="primary"
+            color="success"
             isDisabled={!isValid || isLoading || isUIBlocked}
             isLoading={isLoading}
             type="submit"

@@ -159,7 +159,7 @@ export default function Page() {
             </Link>
           </Checkbox>
           <Button
-            color="primary"
+            color="success"
             isDisabled={!isValid || isLoading}
             isLoading={isLoading}
             type="submit"

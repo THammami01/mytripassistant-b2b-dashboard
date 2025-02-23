@@ -24,7 +24,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-2">
+    <div className="flex flex-col gap-5 p-2">
       <div>
         <p className="text-base font-medium text-default-700">
           Profile and Company Information
@@ -134,11 +134,11 @@ export default function Page() {
             />
           </div>
 
-          <div className="flex justify-end w-full gap-2 mt-6">
+          <div className="flex w-full gap-2 mt-3">
             {/* <Button radius="full" variant="bordered">
               Cancel
             </Button> */}
-            <Button color="primary" radius="full" type="submit">
+            <Button color="success" radius="full" type="submit">
               Save Changes
             </Button>
           </div>
