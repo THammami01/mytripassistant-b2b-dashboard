@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         value: resetPasswordToken,
         type: "PASSWORD_RESET",
       },
-      include: { user: true },
+      include: { user: { include: { company: true } } },
     });
 
     if (!token || token.expiresAt < new Date()) {

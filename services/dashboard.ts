@@ -1,4 +1,4 @@
-import { BasicInformationFormType } from "@/app/dashboard/settings/basic-information";
+import { ChangeBasicInformationFormType } from "@/app/dashboard/settings/basic-information";
 import {
   ChangeEmailFormType,
   ChangePasswordFormType,
@@ -18,7 +18,7 @@ const DashboardService = {
     return response.json();
   },
 
-  async changeBasicInformation(data: BasicInformationFormType) {
+  async changeBasicInformation(data: ChangeBasicInformationFormType) {
     const response = await fetch(`/api/dashboard/change-basic-information`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -32,6 +32,8 @@ const DashboardService = {
 
       throw new Error(`Change basic information failed. ${error.error}.`);
     }
+
+    return response.json();
   },
 
   async changeEmail(data: ChangeEmailFormType) {

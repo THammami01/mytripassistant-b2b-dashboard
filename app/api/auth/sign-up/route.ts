@@ -32,6 +32,9 @@ export async function POST(req: Request) {
         email: email,
         hashedPassword: await bcrypt.hash(password, 10),
       },
+      include: {
+        company: true,
+      },
     });
 
     const userWithoutSensitiveData = {

@@ -7,6 +7,16 @@ export interface User {
   email: string;
   firstName?: string;
   lastName?: string;
+  company?: {
+    name: string;
+    taxId: string;
+    address: string;
+    state: string;
+    zipCode: string;
+    country: string;
+    phoneNumber: string;
+    website: string;
+  };
 }
 
 interface UserContextType {

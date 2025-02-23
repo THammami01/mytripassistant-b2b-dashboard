@@ -17,6 +17,9 @@ export async function PUT(req: NextRequest) {
 
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        company: true,
+      },
     });
 
     if (!user) {
@@ -43,6 +46,7 @@ export async function PUT(req: NextRequest) {
       ...updatedUser,
       hashedPassword: undefined,
       googleIds: undefined,
+      company: user.company,
     };
 
     return NextResponse.json(userWithoutSensitiveData);

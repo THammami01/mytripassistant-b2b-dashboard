@@ -20,7 +20,7 @@ import Sidebar from "./Sidebar";
 import sidebarItems from "./sidebar-items";
 import BreadcumbsHeader from "./BreadcumbsHeader";
 import TeamAvatar from "./TeamAvatar";
-import CustomAlert from "./CustomAlert";
+import { InitialSetupAlert } from "./InitialSetupAlert";
 
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { AuthService } from "@/services";
@@ -34,7 +34,6 @@ export default function SubLayout({ children }: PropsWithChildren) {
   const { user } = useUser();
   const [isLoading, setIsLoading] = React.useState(false);
   const pathname = usePathname();
-  const alertRef = React.useRef<HTMLDivElement>(null);
 
   const getPaths = () => {
     const pathSegments = pathname.split("/").filter(Boolean);
@@ -131,7 +130,11 @@ export default function SubLayout({ children }: PropsWithChildren) {
               >
                 {name || user?.email}
               </p>
-              <p className="font-medium text-tiny text-default-400">Admin</p>
+              {user?.company?.name && (
+                <p className="font-medium text-tiny text-default-400 w-[10rem] truncate ">
+                  {user?.company?.name}
+                </p>
+              )}
             </div>
           </div>
 
@@ -262,34 +265,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
 
       {/*  Settings Content */}
       <ScrollShadow className="w-full h-full pb-8">
-        <CustomAlert
-          ref={alertRef}
-          className="mt-4"
-          color="default"
-          title="Please start by filling in basic information about you and your company in order to have access to the full functionality of the platform."
-        >
-          <div className="flex items-center gap-1 mt-3">
-            {!pathname.startsWith("/dashboard/settings") && (
-              <Button
-                className="font-medium bg-background text-default-700 border-1 shadow-small"
-                size="sm"
-                variant="bordered"
-                onPress={() =>
-                  router.push("/dashboard/settings/basic-information")
-                }
-              >
-                Go to settings
-              </Button>
-            )}
-            {/* <Button
-                className="font-medium underline text-default-500 underline-offset-4"
-                size="sm"
-                variant="light"
-              >
-                Maybe later
-              </Button> */}
-          </div>
-        </CustomAlert>
+        <InitialSetupAlert />
 
         <div className="flex-1 w-full p-4">
           {/* Title */}

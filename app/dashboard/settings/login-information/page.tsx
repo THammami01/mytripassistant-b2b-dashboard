@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Divider } from "@heroui/react";
+import { Alert, Button, Divider } from "@heroui/react";
 import { Input } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
@@ -46,14 +46,13 @@ export default function Page() {
   const [isChangeEmailLoading, setIsChangeEmailLoading] = useState(false);
   const [isChangePasswordLoading, setIsChangePasswordLoading] = useState(false);
   const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
 
   const onChangeEmailSubmit = (data: ChangeEmailFormType) => {
     setIsChangeEmailLoading(true);
 
     DashboardService.changeEmail(data)
       .then((res) => {
-        console.log(res);
         toast.success("Email updated successfully.");
         setUser(res);
       })
@@ -71,7 +70,6 @@ export default function Page() {
 
     DashboardService.changePassword(data)
       .then((res) => {
-        console.log(res);
         toast.success("Password updated successfully.");
         setUser(res);
       })
@@ -95,6 +93,14 @@ export default function Page() {
         <p className="mt-1 text-sm font-normal text-default-400">
           Manage your email address.
         </p>
+
+        <div className="flex items-center justify-center w-full my-3">
+          <Alert
+            hideIcon
+            description={user?.email}
+            title="Your current email address:"
+          />
+        </div>
 
         <form
           className="mt-5"

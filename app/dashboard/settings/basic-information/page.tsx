@@ -13,18 +13,23 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import countries from "./countries";
-import { basicInformationFormSchema, BasicInformationFormType } from "./types";
+import {
+  changeBasicInformationFormSchema,
+  ChangeBasicInformationFormType,
+} from "./types";
 
 import { DashboardService } from "@/services";
+import { useUser } from "@/contexts/user";
 
 export default function Page() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<BasicInformationFormType>({
+    reset,
+  } = useForm<ChangeBasicInformationFormType>({
     mode: "all",
-    resolver: zodResolver(basicInformationFormSchema),
+    resolver: zodResolver(changeBasicInformationFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -39,13 +44,34 @@ export default function Page() {
     },
   });
   const [isLoading, setIsLoading] = React.useState(false);
+  const { user, setUser } = useUser();
 
-  const onSubmit = (data: BasicInformationFormType) => {
+  React.useEffect(() => {
+    if (user) {
+      reset({
+        firstName: user?.firstName || "",
+        lastName: user?.lastName || "",
+        companyName: user?.company?.name || "",
+        taxId: user?.company?.taxId || "",
+        address: user?.company?.address || "",
+        state: user?.company?.state || "",
+        zipCode: user?.company?.zipCode || "",
+        country:
+          countries.find((country) => country.name === user?.company?.country)
+            ?.code || "",
+        phoneNumber: user?.company?.phoneNumber || "",
+        website: user?.company?.website || "",
+      });
+    }
+  }, [user]);
+
+  const onSubmit = (data: ChangeBasicInformationFormType) => {
     setIsLoading(true);
 
     DashboardService.changeBasicInformation(data)
-      .then((_res) => {
+      .then((res) => {
         toast.success("Basic information updated successfully.");
+        setUser(res);
       })
       .catch((err) => {
         toast.error(err.message);
@@ -172,12 +198,12 @@ export default function Page() {
               description={errors?.website?.message}
               label="Website"
               labelPlacement="outside"
-              placeholder="mytripassistant.com"
-              startContent={
-                <div className="flex items-center pointer-events-none">
-                  <span className="text-default-400 text-small">https://</span>
-                </div>
-              }
+              placeholder="e.g. https://mytripassistant.com"
+              // startContent={
+              //   <div className="flex items-center pointer-events-none">
+              //     <span className="text-default-400 text-small">https://</span>
+              //   </div>
+              // }
               type="url"
               {...register("website")}
             />

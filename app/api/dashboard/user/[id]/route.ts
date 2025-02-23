@@ -10,6 +10,9 @@ export async function GET(_req: NextRequest) {
 
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        company: true,
+      },
     });
 
     if (!user) {

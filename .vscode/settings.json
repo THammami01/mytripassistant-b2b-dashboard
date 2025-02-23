@@ -6,6 +6,8 @@
     "heroui",
     "iconify",
     "lastname",
-    "mytripassistant"
+    "mytripassistant",
+    "turbopack",
+    "usehooks"
   ]
 }
