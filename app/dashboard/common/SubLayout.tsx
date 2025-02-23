@@ -15,11 +15,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
-// import ProfileSetting from "./profile-setting";
-// import AppearanceSetting from "./appearance-setting";
-// import AccountSetting from "./account-setting";
-// import BillingSetting from "./billing-setting";
-// import TeamSetting from "./team-setting";
 import SidebarDrawer from "./SidebarDrawer";
 import Sidebar from "./Sidebar";
 import sidebarItems from "./sidebar-items";
@@ -38,6 +33,19 @@ export default function SubLayout({ children }: PropsWithChildren) {
   const { user } = useUser();
   const [isLoading, setIsLoading] = React.useState(false);
   const pathname = usePathname();
+
+  const getPaths = () => {
+    const pathSegments = pathname.split("/").filter(Boolean);
+    const paths = pathSegments.reduce<string[]>((acc, segment, index) => {
+      const path = "/" + pathSegments.slice(0, index + 1).join("/");
+
+      acc.push(path);
+
+      return acc;
+    }, []);
+
+    return paths;
+  };
 
   const onToggle = React.useCallback(() => {
     setIsCollapsed((prev) => !prev);
@@ -109,11 +117,6 @@ export default function SubLayout({ children }: PropsWithChildren) {
           </div>
           <Spacer y={6} />
           <div className="flex items-center gap-3 px-3">
-            {/* <Avatar
-              isBordered
-              size="sm"
-              // name={name}
-            /> */}
             <TeamAvatar isBordered name={name} />
             <div
               className={cn("flex max-w-full flex-col", {
@@ -141,7 +144,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
               title: "group-data-[selected=true]:text-default-50",
             }}
             items={sidebarItems}
-            selectedKeys={[pathname]}
+            selectedKeys={getPaths()}
           />
 
           <Spacer y={8} />
@@ -225,7 +228,9 @@ export default function SubLayout({ children }: PropsWithChildren) {
                     "justify-center": isCollapsed,
                   }
                 )}
+                isDisabled={isLoading}
                 isIconOnly={isCollapsed}
+                isLoading={isLoading}
                 startContent={
                   isCollapsed ? null : (
                     <Icon
@@ -236,8 +241,6 @@ export default function SubLayout({ children }: PropsWithChildren) {
                   )
                 }
                 variant="light"
-                isDisabled={isLoading}
-                isLoading={isLoading}
                 onPress={() => handleLogout()}
               >
                 {isCollapsed ? (

@@ -5,5 +5,5 @@ import { useParams } from "next/navigation";
 export default function Page() {
   const { id } = useParams();
 
-  return <div>App {id}</div>;
+  return <div>App {id} (not implemented yet)</div>;
 }

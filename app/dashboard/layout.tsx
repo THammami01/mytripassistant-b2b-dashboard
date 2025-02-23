@@ -17,7 +17,7 @@ export default async function DashboardLayout({
 
   return (
     <UserProvider initialUser={user as User}>
-      <div className="flex min-h-screen">
+      <div className="flex px-4 min-h-dvh">
         <SubLayout>{children}</SubLayout>
       </div>
     </UserProvider>

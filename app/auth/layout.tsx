@@ -11,7 +11,7 @@ import { ThemeSwitch } from "@/components";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <GoogleReCaptchaProvider reCaptchaKey={GOOGLE_RECAPTCHA_V3_SITE_KEY}>
-      <div className="relative flex w-full h-full min-h-screen">
+      <div className="relative flex w-full h-full min-h-dvh">
         {/* Brand Logo */}
         <div className="absolute left-2 top-5 lg:left-5">
           <div className="flex items-center">

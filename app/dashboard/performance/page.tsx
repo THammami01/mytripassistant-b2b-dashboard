@@ -1,5 +1,5 @@
 "use client";
 
 export default function Page() {
-  return <div>Performance</div>;
+  return <div>Performance (not implemented yet)</div>;
 }
