@@ -4,30 +4,32 @@ import React from "react";
 import { Tabs, Tab, Button, Badge, useDisclosure } from "@heroui/react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { AppReviewStatus } from "@prisma/client";
 
 import CreateAppModal from "./CreateAppModal";
 
 import { getFaviconFromWebsiteUrl } from "@/config/helpers";
+import { useUser } from "@/contexts/user";
 
 const apps: any[] = [
-  // {
-  //   id: "82669756-b58d-4db1-8756-f7a15ff71004",
-  //   name: "App 01",
-  //   url: "https://mytripassistant.com",
-  //   reviewStatus: "PENDING",
-  // },
-  // {
-  //   id: "18024247-6d10-42cc-8cad-5186fc9604bf",
-  //   name: "App 02",
-  //   url: "http://app02.com",
-  //   reviewStatus: "REJECTED",
-  // },
-  // {
-  //   id: "94297250-2838-4e81-bd3e-a0832d2ce8a7",
-  //   name: "App 03",
-  //   url: "https://google.com",
-  //   reviewStatus: "ACCEPTED",
-  // },
+  {
+    id: "82669756-b58d-4db1-8756-f7a15ff71004",
+    name: "App 01",
+    url: "https://mytripassistant.com",
+    reviewStatus: "PENDING",
+  },
+  {
+    id: "18024247-6d10-42cc-8cad-5186fc9604bf",
+    name: "App 02",
+    url: "http://app02.com",
+    reviewStatus: "REJECTED",
+  },
+  {
+    id: "94297250-2838-4e81-bd3e-a0832d2ce8a7",
+    name: "App 03",
+    url: "https://google.com",
+    reviewStatus: "ACCEPTED",
+  },
   // {
   //   id: "82669756-b58d-4db1-8756-f7a15ff71004",
   //   name: "App 01",
@@ -97,6 +99,7 @@ export default function AppsLayout({
     onOpenChange: onCreateAppModalOpenChange,
     onClose: onCreateAppModalClose,
   } = useDisclosure();
+  const { user } = useUser();
 
   const selectedKey = pathname.split("/").pop();
 
@@ -113,7 +116,7 @@ export default function AppsLayout({
             + Add a new app
           </Button>
 
-          {apps.length ? (
+          {user?.apps.length ? (
             <Tabs
               fullWidth
               isVertical
@@ -125,18 +128,18 @@ export default function AppsLayout({
               selectedKey={selectedKey}
               onSelectionChange={(key) => router.push(`/dashboard/apps/${key}`)}
             >
-              {apps.map((app, idx) => (
+              {user?.apps.map((app) => (
                 <Tab
-                  key={app.id + idx}
+                  key={app.id}
                   className="flex flex-col items-start justify-center w-full h-16 font-medium text-left"
                   title={
                     <>
                       <Badge
-                        className="translate-x-5 translate-y-[0.15rem]"
+                        className="translate-x-6 translate-y-[0.15rem]"
                         color={
-                          app.reviewStatus === "ACCEPTED"
+                          app.reviewStatus === AppReviewStatus.ACCEPTED
                             ? "success"
-                            : app.reviewStatus === "REJECTED"
+                            : app.reviewStatus === AppReviewStatus.REJECTED
                               ? "danger"
                               : "default"
                         }
@@ -145,11 +148,7 @@ export default function AppsLayout({
                         size="sm"
                         variant="shadow"
                       >
-                        <p
-                          // className="ml-6 text-sm font-medium"
-                          className="text-sm font-medium"
-                          title={app.name}
-                        >
+                        <p className="text-sm font-medium" title={app.name}>
                           {app.name}
                         </p>
                       </Badge>
@@ -160,8 +159,16 @@ export default function AppsLayout({
                           height={20}
                           src={getFaviconFromWebsiteUrl(app.url)}
                           width={20}
+                          onError={(event) => {
+                            const img = event.target as HTMLImageElement;
+
+                            img.id =
+                              "https://res.cloudinary.com/dgihbgsnz/image/upload/v1740900487/mytripassistant/app-favicon-placeholder_lq00du.svg";
+                            img.srcset =
+                              "https://res.cloudinary.com/dgihbgsnz/image/upload/v1740900487/mytripassistant/app-favicon-placeholder_lq00du.svg";
+                          }}
                         />
-                        <p className="text-sm text-default-500" title={app.url}>
+                        <p className="w-[14rem] truncate text-sm text-default-500" title={app.url}>
                           {app.url}
                         </p>
                       </div>

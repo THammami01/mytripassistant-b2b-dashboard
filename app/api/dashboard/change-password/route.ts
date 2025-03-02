@@ -19,6 +19,7 @@ export async function PUT(req: NextRequest) {
       where: { id },
       include: {
         company: true,
+        apps: true,
       },
     });
 
@@ -45,7 +46,9 @@ export async function PUT(req: NextRequest) {
     const userWithoutSensitiveData = {
       ...updatedUser,
       hashedPassword: undefined,
+      passwordResetTokenId: undefined,
       googleIds: undefined,
+      feedback: undefined,
       company: user.company,
     };
 

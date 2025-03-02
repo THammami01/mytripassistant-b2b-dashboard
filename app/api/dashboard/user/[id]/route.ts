@@ -12,6 +12,7 @@ export async function GET(_req: NextRequest) {
       where: { id },
       include: {
         company: true,
+        apps: true,
       },
     });
 
@@ -22,7 +23,9 @@ export async function GET(_req: NextRequest) {
     const userWithoutSensitiveData = {
       ...user,
       hashedPassword: undefined,
+      passwordResetTokenId: undefined,
       googleIds: undefined,
+      feedback: undefined,
     };
 
     return NextResponse.json(userWithoutSensitiveData);

@@ -19,6 +19,7 @@ export async function POST(req: Request) {
       where: { email },
       include: {
         company: true,
+        apps: true,
       },
     });
 
@@ -35,7 +36,9 @@ export async function POST(req: Request) {
     const userWithoutSensitiveData = {
       ...user,
       hashedPassword: undefined,
+      passwordResetTokenId: undefined,
       googleIds: undefined,
+      feedback: undefined,
     };
 
     await createSession(user.id, rememberMe);

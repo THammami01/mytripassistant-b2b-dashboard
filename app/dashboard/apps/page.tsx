@@ -2,6 +2,10 @@
 
 import { redirect } from "next/navigation";
 
+import { useUser } from "@/contexts/user";
+
 export default function Page() {
-  return redirect("/dashboard/apps/82669756-b58d-4db1-8756-f7a15ff71004");
+  const { user } = useUser();
+
+  return redirect(`/dashboard/apps/${user?.apps[0].id}`);
 }

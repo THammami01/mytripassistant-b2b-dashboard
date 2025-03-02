@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { AppPlatform, AppReviewStatus } from "@prisma/client";
 
 export interface User {
   id: string;
@@ -16,6 +17,15 @@ export interface User {
     phoneNumber: string;
     website: string;
   };
+  apps: {
+    id: string;
+    name: string;
+    description: string;
+    url: string;
+    platform: AppPlatform;
+    reviewStatus: AppReviewStatus;
+    published: boolean;
+  }[];
 }
 
 interface UserContextType {

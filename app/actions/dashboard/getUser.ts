@@ -7,6 +7,7 @@ export async function getUser(id: string) {
     where: { id },
     include: {
       company: true,
+      apps: true,
     },
   });
 
@@ -17,7 +18,9 @@ export async function getUser(id: string) {
   const userWithoutSensitiveData = {
     ...user,
     hashedPassword: undefined,
+    passwordResetTokenId: undefined,
     googleIds: undefined,
+    feedback: undefined,
   };
 
   return userWithoutSensitiveData;

@@ -37,6 +37,7 @@ export async function POST(req: Request) {
       where: { email: payload.email },
       include: {
         company: true,
+        apps: true,
       },
     });
 
@@ -53,7 +54,9 @@ export async function POST(req: Request) {
       const userWithoutSensitiveData = {
         ...existingUser,
         hashedPassword: undefined,
+        passwordResetTokenId: undefined,
         googleIds: undefined,
+        feedback: undefined,
       };
 
       await createSession(existingUser.id, true);
@@ -76,7 +79,9 @@ export async function POST(req: Request) {
       const userWithoutSensitiveData = {
         ...newUser,
         hashedPassword: undefined,
+        passwordResetTokenId: undefined,
         googleIds: undefined,
+        feedback: undefined,
       };
 
       await createSession(newUser.id, true);

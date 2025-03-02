@@ -47,7 +47,9 @@ export async function POST(req: Request) {
     const userWithoutSensitiveData = {
       ...token.user,
       hashedPassword: undefined,
+      passwordResetTokenId: undefined,
       googleIds: undefined,
+      feedback: undefined,
     };
 
     return NextResponse.json({ user: userWithoutSensitiveData });

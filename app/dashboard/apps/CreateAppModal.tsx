@@ -23,6 +23,7 @@ import {
 } from "./types";
 
 import DashboardService from "@/services/dashboard";
+import { useUser } from "@/contexts/user";
 
 export default function CreateAppModal({
   isOpen,
@@ -50,12 +51,13 @@ export default function CreateAppModal({
     },
   });
   const [isLoading, setIsLoading] = React.useState(false);
+  const { setUser, user } = useUser();
 
   const onSubmit = (data: CreateAppFormType) => {
     setIsLoading(true);
 
     DashboardService.createApp(data)
-      .then(() => {
+      .then((res) => {
         toast.success(
           "App details submitted successfully. We will review your request and get back to you soon.",
           {
@@ -63,6 +65,10 @@ export default function CreateAppModal({
           }
         );
         reset();
+        setUser({
+          ...user!,
+          apps: [...user!.apps, res.app],
+        });
         onClose();
       })
       .catch((err) => {

@@ -34,13 +34,16 @@ export async function POST(req: Request) {
       },
       include: {
         company: true,
+        apps: true,
       },
     });
 
     const userWithoutSensitiveData = {
       ...user,
       hashedPassword: undefined,
+      passwordResetTokenId: undefined,
       googleIds: undefined,
+      feedback: undefined,
     };
 
     await createSession(user.id);

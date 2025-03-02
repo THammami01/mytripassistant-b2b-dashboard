@@ -48,7 +48,9 @@ export async function PUT(request: NextRequest) {
     const userWithoutSensitiveData = {
       ...user,
       hashedPassword: undefined,
+      passwordResetTokenId: undefined,
       googleIds: undefined,
+      feedback: undefined,
       company,
     };
 
