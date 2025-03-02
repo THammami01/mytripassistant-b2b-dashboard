@@ -8,7 +8,7 @@ export default function Page() {
   const { id } = useParams();
 
   return (
-    <Card isDisabled className="h-full" shadow="sm">
+    <Card isDisabled className="min-h-[calc(50vh)] md:min-h-auto md:h-full" shadow="sm">
       <CardBody>
         {id === "create-a-new-app"
           ? "Start by creating a new app"

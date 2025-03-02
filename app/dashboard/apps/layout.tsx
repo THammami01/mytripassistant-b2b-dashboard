@@ -10,6 +10,7 @@ import CreateAppModal from "./CreateAppModal";
 
 import { getFaviconFromWebsiteUrl } from "@/config/helpers";
 import { useUser } from "@/contexts/user";
+import { useMediaQuery } from "usehooks-ts";
 
 export default function AppsLayout({
   children,
@@ -25,13 +26,14 @@ export default function AppsLayout({
     onClose: onCreateAppModalClose,
   } = useDisclosure();
   const { user } = useUser();
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const selectedKey = pathname.split("/").pop();
 
   return (
-    <div className="flex flex-col w-full gap-8 h-[calc(100vh-14rem)]">
-      <div className="flex gap-4 h-[calc(100vh-14rem)]">
-        <div className="flex flex-col w-1/4 gap-4">
+    <div className="flex md:flex-col w-full gap-8 md:h-[calc(100vh-14rem)]">
+      <div className="flex flex-col md:flex-row gap-4 md:h-[calc(100vh-14rem)]">
+        <div className="flex flex-col w-full gap-4 md:w-1/4 md:flex-col">
           <Button
             className="w-full h-12 font-medium border-dashed text-success pr-0.5"
             color="default"
@@ -50,12 +52,12 @@ export default function AppsLayout({
           {user?.apps.length ? (
             <Tabs
               fullWidth
-              className="h-[calc(100vh-18rem)] overflow-y-auto pr-0.5"
+              isVertical
+              className="md:h-[calc(100vh-18rem)] overflow-y-auto pr-0.5"
               classNames={{
                 cursor: "bg-content1 dark:bg-content1",
                 panel: "w-full p-0 pt-4",
               }}
-              isVertical={true}
               selectedKey={selectedKey}
               onSelectionChange={(key) => router.push(`/dashboard/apps/${key}`)}
             >
@@ -129,7 +131,7 @@ export default function AppsLayout({
           )}
         </div>
 
-        <div className="w-3/4">{children}</div>
+        <div className="w-full md:w-3/4">{children}</div>
       </div>
 
       <CreateAppModal
