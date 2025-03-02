@@ -39,5 +39,6 @@ npx prisma studio  # Open the Prisma Studio
 npx prisma generate  # Generate the Prisma client
 npx prisma db seed  # Seed the database
 npx prisma migrate dev --name <the-name-of-the-change>  # Create a new migration
+npx prisma migrate dev --name <the-name-of-the-change>  --create-only  # Create a new migration without running it
 npx prisma migrate deploy  # Deploy the migration to the database
 ```

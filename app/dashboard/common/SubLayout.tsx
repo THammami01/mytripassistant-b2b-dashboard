@@ -264,7 +264,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
       </SidebarDrawer>
 
       {/*  Settings Content */}
-      <ScrollShadow className="w-full h-full pb-8">
+      <ScrollShadow className="w-full h-full px-2 lg:px-0 lg:pb-8 lg:pr-4">
         <InitialSetupAlert />
 
         <div className="flex-1 w-full p-4">

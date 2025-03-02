@@ -56,7 +56,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full bg-background lg:w-1/2">
+    <div className="flex items-center justify-center w-full my-32 bg-background lg:w-1/2">
       <div className="flex flex-col items-center w-full max-w-sm gap-4 p-4">
         <div className="w-full text-left">
           <p className="pb-2 text-xl font-medium">Forgot Password</p>

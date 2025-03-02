@@ -13,7 +13,7 @@ const FILL_IN_BASIC_INFORMATION_BTN_LABEL = "Go to settings";
 const FILL_IN_BASIC_INFORMATION_BTN_PATH =
   "/dashboard/settings/basic-information";
 
-const CREATE_YOUR_FIRST_APP_TITLE = "Create your first app to get started";
+const CREATE_YOUR_FIRST_APP_TITLE = "Create your first app to get started.";
 const CREATE_YOUR_FIRST_APP_BTN_LABEL = "Create app";
 const CREATE_YOUR_FIRST_APP_BTN_PATH = "/dashboard/apps";
 
