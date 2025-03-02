@@ -26,6 +26,7 @@ import GiveFeedbackModal from "./GiveFeedbackModal";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { AuthService } from "@/services";
 import { useUser } from "@/contexts/user";
+import { getFaviconFromWebsiteUrl } from "@/config/helpers";
 
 export default function SubLayout({ children }: PropsWithChildren) {
   const { isOpen, onOpenChange } = useDisclosure();
@@ -76,6 +77,43 @@ export default function SubLayout({ children }: PropsWithChildren) {
       ? `${user?.firstName} ${user?.lastName}`
       : "";
 
+  const sidebarItemsWithApps = React.useMemo(
+    () => [
+      ...sidebarItems,
+      {
+        key: "your-apps",
+        title: "Your Apps",
+        items: user?.apps
+          .sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+          .map((app) => ({
+            key: `/dashboard/apps/${app.id}`,
+            href: `/dashboard/apps/${app.id}`,
+            title: app.name,
+            startContent: (
+              <Image
+                alt={app.name}
+                height={16}
+                src={getFaviconFromWebsiteUrl(app.url)}
+                width={16}
+                onError={(event) => {
+                  const img = event.target as HTMLImageElement;
+
+                  img.id =
+                    "https://res.cloudinary.com/dgihbgsnz/image/upload/v1740901786/mytripassistant/app-favicon-placeholder-02_nktzmy.svg";
+                  img.srcset =
+                    "https://res.cloudinary.com/dgihbgsnz/image/upload/v1740901786/mytripassistant/app-favicon-placeholder-02_nktzmy.svg";
+                }}
+              />
+            ),
+          })),
+      },
+    ],
+    [user?.apps]
+  );
+
   return (
     <div className="flex w-full gap-4 h-dvh">
       {/* Sidebar */}
@@ -89,7 +127,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
       >
         <div
           className={cn(
-            "will-change relative flex h-full w-72 flex-col bg-default-100 p-6 transition-width",
+            "will-change relative flex h-dvh overflow-y-scroll w-72 flex-col bg-default-100 p-6 transition-width",
             {
               "w-[83px] items-center px-[6px] py-6": isCollapsed,
             }
@@ -158,7 +196,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
               base: "px-3 rounded-large data-[selected=true]:!bg-foreground",
               title: "group-data-[selected=true]:text-default-50",
             }}
-            items={sidebarItems}
+            items={sidebarItemsWithApps}
             selectedKeys={getPaths()}
           />
 

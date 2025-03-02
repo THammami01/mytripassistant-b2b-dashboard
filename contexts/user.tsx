@@ -18,6 +18,7 @@ export interface User {
     website: string;
   };
   apps: {
+    createdAt: string | number | Date;
     id: string;
     name: string;
     description: string;

@@ -43,30 +43,30 @@ const sidebarItems: SidebarItem[] = [
       },
     ],
   },
-  {
-    key: "your-apps",
-    title: "Your Apps",
-    items: [
-      {
-        key: "/dashboard/apps/82669756-b58d-4db1-8756-f7a15ff71004",
-        href: "/dashboard/apps/82669756-b58d-4db1-8756-f7a15ff71004",
-        title: "App 01",
-        startContent: <TeamAvatar name="App 01" />,
-      },
-      {
-        key: "/dashboard/apps/18024247-6d10-42cc-8cad-5186fc9604bf",
-        href: "/dashboard/apps/18024247-6d10-42cc-8cad-5186fc9604bf",
-        title: "App 02",
-        startContent: <TeamAvatar name="App 02" />,
-      },
-      {
-        key: "/dashboard/apps/94297250-2838-4e81-bd3e-a0832d2ce8a7",
-        href: "/dashboard/apps/94297250-2838-4e81-bd3e-a0832d2ce8a7",
-        title: "App 03",
-        startContent: <TeamAvatar name="App 03" />,
-      },
-    ],
-  },
+  // {
+  //   key: "your-apps",
+  //   title: "Your Apps",
+  //   items: [
+  //     {
+  //       key: "/dashboard/apps/82669756-b58d-4db1-8756-f7a15ff71004",
+  //       href: "/dashboard/apps/82669756-b58d-4db1-8756-f7a15ff71004",
+  //       title: "App 01",
+  //       startContent: <TeamAvatar name="App 01" />,
+  //     },
+  //     {
+  //       key: "/dashboard/apps/18024247-6d10-42cc-8cad-5186fc9604bf",
+  //       href: "/dashboard/apps/18024247-6d10-42cc-8cad-5186fc9604bf",
+  //       title: "App 02",
+  //       startContent: <TeamAvatar name="App 02" />,
+  //     },
+  //     {
+  //       key: "/dashboard/apps/94297250-2838-4e81-bd3e-a0832d2ce8a7",
+  //       href: "/dashboard/apps/94297250-2838-4e81-bd3e-a0832d2ce8a7",
+  //       title: "App 03",
+  //       startContent: <TeamAvatar name="App 03" />,
+  //     },
+  //   ],
+  // },
 ];
 
 export default sidebarItems;
