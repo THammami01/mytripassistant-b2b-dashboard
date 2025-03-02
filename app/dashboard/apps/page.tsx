@@ -1,5 +1,7 @@
 "use client";
 
+import { redirect } from "next/navigation";
+
 export default function Page() {
-  return <div>Apps (not implemented yet)</div>;
+  return redirect("/dashboard/apps/82669756-b58d-4db1-8756-f7a15ff71004");
 }

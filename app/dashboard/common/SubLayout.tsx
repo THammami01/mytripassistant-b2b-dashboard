@@ -138,7 +138,10 @@ export default function SubLayout({ children }: PropsWithChildren) {
                 {name || user?.email}
               </p>
               {user?.company?.name && (
-                <p className="font-medium text-tiny text-default-400 w-[10rem] truncate ">
+                <p
+                  className="font-medium text-tiny text-default-400 w-[10rem] truncate "
+                  title={user?.company?.name}
+                >
                   {user?.company?.name}
                 </p>
               )}
