@@ -14,16 +14,17 @@ datasource db {
 }
 
 model User {
-  id                   String   @id @default(uuid())
-  email                String   @unique
+  id                   String     @id @default(uuid())
+  email                String     @unique
   firstName            String?
   lastName             String?
   hashedPassword       String
   passwordResetTokenId Token?
   googleIds            String[]
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
   company              Company?
+  feedback             Feedback[]
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @default(now()) @updatedAt
 }
 
 model Token {
@@ -33,10 +34,12 @@ model Token {
   value     String
   user      User      @relation(fields: [userId], references: [id])
   userId    String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
 }
 
 model Company {
-  id          String @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   address     String
   state       String
@@ -44,10 +47,29 @@ model Company {
   country     String
   phoneNumber String
   website     String
-  user        User   @relation(fields: [userId], references: [id])
-  userId      String @unique
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+}
+
+model Feedback {
+  id        String   @id @default(uuid())
+  content   String
+  rating    Rating
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 enum TokenType {
   PASSWORD_RESET
+}
+
+enum Rating {
+  BAD
+  NEUTRAL
+  GOOD
+  GREAT
 }

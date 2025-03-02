@@ -1,3 +1,4 @@
+import { GiveFeedbackFormType } from "@/app/dashboard/common/types";
 import { ChangeBasicInformationFormType } from "@/app/dashboard/settings/basic-information";
 import {
   ChangeEmailFormType,
@@ -67,6 +68,24 @@ const DashboardService = {
       console.log(error);
 
       throw new Error(`Change password failed. ${error.error}.`);
+    }
+
+    return response.json();
+  },
+
+  async giveFeedback(data: GiveFeedbackFormType) {
+    const response = await fetch(`/api/dashboard/give-feedback`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.log(error);
+
+      throw new Error(`Give feedback failed. ${error.error}.`);
     }
 
     return response.json();

@@ -21,6 +21,7 @@ import sidebarItems from "./sidebar-items";
 import BreadcumbsHeader from "./BreadcumbsHeader";
 import TeamAvatar from "./TeamAvatar";
 import { InitialSetupAlert } from "./InitialSetupAlert";
+import FeedbackModal from "./FeedbackModal";
 
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { AuthService } from "@/services";
@@ -33,6 +34,12 @@ export default function SubLayout({ children }: PropsWithChildren) {
   const router = useRouter();
   const { user } = useUser();
   const [isLoading, setIsLoading] = React.useState(false);
+  const {
+    isOpen: isFeedbackModalOpen,
+    onOpen: onFeedbackModalOpen,
+    onOpenChange: onFeedbackModalOpenChange,
+    onClose: onFeedbackModalClose,
+  } = useDisclosure();
   const pathname = usePathname();
 
   const getPaths = () => {
@@ -183,6 +190,43 @@ export default function SubLayout({ children }: PropsWithChildren) {
             </div>
 
             <Tooltip
+              content="Give Feedback"
+              isDisabled={!isCollapsed}
+              placement="right"
+            >
+              <Button
+                fullWidth
+                className={cn(
+                  "justify-start truncate text-default-600 data-[hover=true]:text-foreground",
+                  {
+                    "justify-center": isCollapsed,
+                  }
+                )}
+                isIconOnly={isCollapsed}
+                startContent={
+                  isCollapsed ? null : (
+                    <Icon
+                      className="flex-none text-default-600"
+                      icon="solar:smile-circle-line-duotone"
+                      width={24}
+                    />
+                  )
+                }
+                variant="light"
+                onPress={() => onFeedbackModalOpen()}
+              >
+                {isCollapsed ? (
+                  <Icon
+                    className="text-default-500"
+                    icon="solar:smile-circle-line-duotone"
+                    width={24}
+                  />
+                ) : (
+                  "Give Feedback"
+                )}
+              </Button>
+            </Tooltip>
+            <Tooltip
               content="Help & Information"
               isDisabled={!isCollapsed}
               placement="right"
@@ -293,6 +337,12 @@ export default function SubLayout({ children }: PropsWithChildren) {
 
         <div className="p-4">{children}</div>
       </ScrollShadow>
+
+      <FeedbackModal
+        isOpen={isFeedbackModalOpen}
+        onClose={onFeedbackModalClose}
+        onOpenChange={onFeedbackModalOpenChange}
+      />
     </div>
   );
 }
