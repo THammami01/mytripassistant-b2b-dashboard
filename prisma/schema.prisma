@@ -23,6 +23,7 @@ model User {
   googleIds            String[]
   company              Company?
   feedback             Feedback[]
+  apps                 App[]
   createdAt            DateTime   @default(now())
   updatedAt            DateTime   @default(now()) @updatedAt
 }
@@ -63,6 +64,20 @@ model Feedback {
   updatedAt DateTime @default(now()) @updatedAt
 }
 
+model App {
+  id           String          @id @default(uuid())
+  name         String
+  description  String
+  url          String
+  platform     AppPlatform
+  reviewStatus AppReviewStatus @default(PENDING)
+  published    Boolean         @default(false)
+  user         User            @relation(fields: [userId], references: [id])
+  userId       String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @default(now()) @updatedAt
+}
+
 enum TokenType {
   PASSWORD_RESET
 }
@@ -72,4 +87,21 @@ enum Rating {
   NEUTRAL
   GOOD
   GREAT
+}
+
+enum AppPlatform {
+  WEB
+  CROSS_PLATFORM
+  IOS
+  ANDROID
+  MACOS
+  WINDOWS
+  LINUX
+  OTHER
+}
+
+enum AppReviewStatus {
+  PENDING
+  REJECTED
+  ACCEPTED
 }

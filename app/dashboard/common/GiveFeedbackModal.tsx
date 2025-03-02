@@ -22,7 +22,7 @@ import { giveFeedbackFormSchema, GiveFeedbackFormType } from "./types";
 
 import DashboardService from "@/services/dashboard";
 
-export default function FeedbackModal({
+export default function GiveFeedbackModal({
   isOpen,
   onOpenChange, 
   onClose,
@@ -73,6 +73,7 @@ export default function FeedbackModal({
         backdrop:
           "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
       }}
+      isDismissable={false}
       isOpen={isOpen}
       shouldBlockScroll={false}
       onOpenChange={onOpenChange}

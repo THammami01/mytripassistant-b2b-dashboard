@@ -15,10 +15,10 @@ const AuthService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Sign up failed. ${error.error}.`);
+      throw new Error(`Sign up failed. ${err.error}.`);
     }
 
     return response.json();
@@ -32,10 +32,10 @@ const AuthService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Sign in failed. ${error.error}.`);
+      throw new Error(`Sign in failed. ${err.error}.`);
     }
 
     return response.json();
@@ -47,10 +47,10 @@ const AuthService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Sign out failed. ${error.error}.`);
+      throw new Error(`Sign out failed. ${err.error}.`);
     }
 
     return response.json();
@@ -64,10 +64,10 @@ const AuthService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Forgot password failed. ${error.error}.`);
+      throw new Error(`Forgot password failed. ${err.error}.`);
     }
 
     return response.json();
@@ -81,10 +81,10 @@ const AuthService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Reset password failed. ${error.error}.`);
+      throw new Error(`Reset password failed. ${err.error}.`);
     }
 
     return response.json();
@@ -98,10 +98,10 @@ const AuthService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Continue with google failed. ${error.error}.`);
+      throw new Error(`Continue with google failed. ${err.error}.`);
     }
 
     return response.json();

@@ -1,3 +1,4 @@
+import { CreateAppFormType } from "@/app/dashboard/apps/types";
 import { GiveFeedbackFormType } from "@/app/dashboard/common/types";
 import { ChangeBasicInformationFormType } from "@/app/dashboard/settings/basic-information";
 import {
@@ -10,10 +11,10 @@ const DashboardService = {
     const response = await fetch(`/api/auth/user/${userId}`);
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Get user failed. ${error.error}.`);
+      throw new Error(`Get user failed. ${err.error}.`);
     }
 
     return response.json();
@@ -28,10 +29,10 @@ const DashboardService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Change basic information failed. ${error.error}.`);
+      throw new Error(`Change basic information failed. ${err.error}.`);
     }
 
     return response.json();
@@ -46,10 +47,10 @@ const DashboardService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Change email failed. ${error.error}.`);
+      throw new Error(`Change email failed. ${err.error}.`);
     }
 
     return response.json();
@@ -64,10 +65,10 @@ const DashboardService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Change password failed. ${error.error}.`);
+      throw new Error(`Change password failed. ${err.error}.`);
     }
 
     return response.json();
@@ -82,10 +83,28 @@ const DashboardService = {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.log(error);
+      const err = await response.json();
+      console.log(err);
 
-      throw new Error(`Give feedback failed. ${error.error}.`);
+      throw new Error(`Give feedback failed. ${err.error}.`);
+    }
+
+    return response.json();
+  },
+
+  async createApp(data: CreateAppFormType) {
+    const response = await fetch(`/api/dashboard/create-app`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      console.log(err);
+
+      throw new Error(`Create app failed. ${err.error}.`);
     }
 
     return response.json();

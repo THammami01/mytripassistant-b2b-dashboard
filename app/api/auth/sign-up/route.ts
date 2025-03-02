@@ -45,9 +45,12 @@ export async function POST(req: Request) {
 
     await createSession(user.id);
 
-    return NextResponse.json({
-      user: userWithoutSensitiveData,
-    });
+    return NextResponse.json(
+      {
+        user: userWithoutSensitiveData,
+      },
+      { status: 201 }
+    );
   } catch (err: any) {
     console.log(err);
 

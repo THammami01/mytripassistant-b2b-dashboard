@@ -21,7 +21,7 @@ import sidebarItems from "./sidebar-items";
 import BreadcumbsHeader from "./BreadcumbsHeader";
 import TeamAvatar from "./TeamAvatar";
 import { InitialSetupAlert } from "./InitialSetupAlert";
-import FeedbackModal from "./FeedbackModal";
+import GiveFeedbackModal from "./GiveFeedbackModal";
 
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { AuthService } from "@/services";
@@ -35,10 +35,10 @@ export default function SubLayout({ children }: PropsWithChildren) {
   const { user } = useUser();
   const [isLoading, setIsLoading] = React.useState(false);
   const {
-    isOpen: isFeedbackModalOpen,
-    onOpen: onFeedbackModalOpen,
-    onOpenChange: onFeedbackModalOpenChange,
-    onClose: onFeedbackModalClose,
+    isOpen: isGiveFeedbackModalOpen,
+    onOpen: onGiveFeedbackModalOpen,
+    onOpenChange: onGiveFeedbackModalOpenChange,
+    onClose: onGiveFeedbackModalClose,
   } = useDisclosure();
   const pathname = usePathname();
 
@@ -216,7 +216,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
                   )
                 }
                 variant="light"
-                onPress={() => onFeedbackModalOpen()}
+                onPress={() => onGiveFeedbackModalOpen()}
               >
                 {isCollapsed ? (
                   <Icon
@@ -341,10 +341,10 @@ export default function SubLayout({ children }: PropsWithChildren) {
         <div className="p-4">{children}</div>
       </ScrollShadow>
 
-      <FeedbackModal
-        isOpen={isFeedbackModalOpen}
-        onClose={onFeedbackModalClose}
-        onOpenChange={onFeedbackModalOpenChange}
+      <GiveFeedbackModal
+        isOpen={isGiveFeedbackModalOpen}
+        onClose={onGiveFeedbackModalClose}
+        onOpenChange={onGiveFeedbackModalOpenChange}
       />
     </div>
   );

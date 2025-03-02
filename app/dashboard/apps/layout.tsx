@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
-import { Tabs, Tab, Button, Badge } from "@heroui/react";
+import { Tabs, Tab, Button, Badge, useDisclosure } from "@heroui/react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+
+import CreateAppModal from "./CreateAppModal";
 
 import { getFaviconFromWebsiteUrl } from "@/config/helpers";
 
@@ -89,6 +91,12 @@ export default function AppsLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const {
+    isOpen: isCreateAppModalOpen,
+    onOpen: onCreateAppModalOpen,
+    onOpenChange: onCreateAppModalOpenChange,
+    onClose: onCreateAppModalClose,
+  } = useDisclosure();
 
   const selectedKey = pathname.split("/").pop();
 
@@ -100,6 +108,7 @@ export default function AppsLayout({
             className="w-full h-12 font-medium border-dashed text-success pr-0.5"
             color="default"
             variant="bordered"
+            onPress={() => onCreateAppModalOpen()}
           >
             + Add a new app
           </Button>
@@ -170,6 +179,12 @@ export default function AppsLayout({
 
         <div className="w-3/4">{children}</div>
       </div>
+
+      <CreateAppModal
+        isOpen={isCreateAppModalOpen}
+        onClose={onCreateAppModalClose}
+        onOpenChange={onCreateAppModalOpenChange}
+      />
     </div>
   );
 }
