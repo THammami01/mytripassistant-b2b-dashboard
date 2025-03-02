@@ -82,9 +82,9 @@ export default function FeedbackModal({
           <ModalBody>
             <ModalHeader className="flex-col items-center gap-1 px-0 text-center">
               <h1 className="text-xl">Help us improve MyTripAssistant</h1>
-              <p className="font-normal text-small text-default-500">
+              <p className="mt-3 font-normal text-small text-default-500">
                 We value your feedback. If you have any ideas or suggestions to
-                improve our product, let us know.
+                improve our product, please let us know.
               </p>
             </ModalHeader>
             <form

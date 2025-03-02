@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     );
 
     await prisma.feedback.create({
-      data: { content, rating: rating as unknown as Rating, userId: id },
+      data: { content, rating, userId: id },
     });
 
     return NextResponse.json(
