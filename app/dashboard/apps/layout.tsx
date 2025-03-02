@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Tabs, Tab, Button, Badge, useDisclosure } from "@heroui/react";
+import { Tabs, Tab, Button, Badge, useDisclosure, cn } from "@heroui/react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { AppReviewStatus } from "@prisma/client";
@@ -35,6 +35,12 @@ export default function AppsLayout({
           <Button
             className="w-full h-12 font-medium border-dashed text-success pr-0.5"
             color="default"
+            isDisabled={!user?.company?.name}
+            title={
+              !user?.company?.name
+                ? "Fill your basic info to be able to add an app"
+                : ""
+            }
             variant="bordered"
             onPress={() => onCreateAppModalOpen()}
           >
@@ -44,12 +50,12 @@ export default function AppsLayout({
           {user?.apps.length ? (
             <Tabs
               fullWidth
-              isVertical
               className="h-[calc(100vh-18rem)] overflow-y-auto pr-0.5"
               classNames={{
                 cursor: "bg-content1 dark:bg-content1",
                 panel: "w-full p-0 pt-4",
               }}
+              isVertical={true}
               selectedKey={selectedKey}
               onSelectionChange={(key) => router.push(`/dashboard/apps/${key}`)}
             >
@@ -62,7 +68,12 @@ export default function AppsLayout({
                 .map((app) => (
                   <Tab
                     key={app.id}
-                    className="flex flex-col items-start justify-center w-full h-16 font-medium text-left"
+                    className={cn(
+                      "flex flex-col items-start justify-center w-full h-16 font-medium text-left",
+                      {
+                        "cursor-default": app.id === selectedKey,
+                      }
+                    )}
                     title={
                       <>
                         <Badge

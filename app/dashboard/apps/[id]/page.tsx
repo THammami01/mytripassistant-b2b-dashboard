@@ -9,7 +9,11 @@ export default function Page() {
 
   return (
     <Card isDisabled className="h-full" shadow="sm">
-      <CardBody>App {id} (not implemented yet)</CardBody>
+      <CardBody>
+        {id === "create-a-new-app"
+          ? "Start by creating a new app"
+          : `App ${id} (not implemented yet)`}
+      </CardBody>
     </Card>
   );
 }

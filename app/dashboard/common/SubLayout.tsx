@@ -83,32 +83,44 @@ export default function SubLayout({ children }: PropsWithChildren) {
       {
         key: "your-apps",
         title: "Your Apps",
-        items: user?.apps
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
-          .map((app) => ({
-            key: `/dashboard/apps/${app.id}`,
-            href: `/dashboard/apps/${app.id}`,
-            title: app.name,
-            startContent: (
-              <Image
-                alt={app.name}
-                height={16}
-                src={getFaviconFromWebsiteUrl(app.url)}
-                width={16}
-                onError={(event) => {
-                  const img = event.target as HTMLImageElement;
+        items: user?.apps?.length
+          ? user?.apps
+              .sort(
+                (a, b) =>
+                  new Date(b.createdAt).getTime() -
+                  new Date(a.createdAt).getTime()
+              )
+              .map((app) => ({
+                key: `/dashboard/apps/${app.id}`,
+                href: `/dashboard/apps/${app.id}`,
+                title: app.name,
+                startContent: (
+                  <Image
+                    alt={app.name}
+                    height={16}
+                    src={getFaviconFromWebsiteUrl(app.url)}
+                    width={16}
+                    onError={(event) => {
+                      const img = event.target as HTMLImageElement;
 
-                  img.id =
-                    "https://res.cloudinary.com/dgihbgsnz/image/upload/v1740901786/mytripassistant/app-favicon-placeholder-02_nktzmy.svg";
-                  img.srcset =
-                    "https://res.cloudinary.com/dgihbgsnz/image/upload/v1740901786/mytripassistant/app-favicon-placeholder-02_nktzmy.svg";
-                }}
-              />
-            ),
-          })),
+                      img.id =
+                        "https://res.cloudinary.com/dgihbgsnz/image/upload/v1740901786/mytripassistant/app-favicon-placeholder-02_nktzmy.svg";
+                      img.srcset =
+                        "https://res.cloudinary.com/dgihbgsnz/image/upload/v1740901786/mytripassistant/app-favicon-placeholder-02_nktzmy.svg";
+                    }}
+                  />
+                ),
+              }))
+          : [
+              {
+                key: "/dashboard/apps/create-a-new-app",
+                href: "/dashboard/apps/create-a-new-app",
+                title: "Create a new app",
+                startContent: (
+                  <Icon icon="solar:plus-circle-line-duotone" width={16} />
+                ),
+              },
+            ],
       },
     ],
     [user?.apps]

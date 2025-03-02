@@ -15,7 +15,7 @@ export default function BreadcumbsHeader() {
 
   const getItemName = (name: string, index: number) => {
     if (index === 2 && pathname.startsWith("/dashboard/apps/"))
-      return user?.apps?.find((app) => app.id === name)?.name;
+      return user?.apps?.find((app) => app.id === name)?.name ?? 'Create a new app';
 
     return name.replace(/-/g, " ");
   };
