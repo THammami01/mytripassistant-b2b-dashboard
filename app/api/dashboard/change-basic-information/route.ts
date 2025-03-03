@@ -20,6 +20,9 @@ export async function PUT(request: NextRequest) {
         firstName,
         lastName,
       },
+      include: {
+        apps: true,
+      },
     });
 
     const company = await prisma.company.upsert({

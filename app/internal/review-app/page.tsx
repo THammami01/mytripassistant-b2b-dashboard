@@ -7,9 +7,9 @@ export default async function ReviewAppPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const token = (await searchParams).token as string;
+  const reviewToken = (await searchParams).token as string;
 
-  if (!token) {
+  if (!reviewToken) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-4 min-h-dvh">
         <h1 className="text-4xl font-bold">Token not found</h1>
@@ -17,7 +17,7 @@ export default async function ReviewAppPage({
           No token was provided.
         </p>
 
-        <hr className="w-full mt-8" />
+        <hr className="w-full mt-8 border-default-200" />
         <div className="flex items-center">
           <p className="font-medium">
             MyTripAssistant{" "}
@@ -29,7 +29,7 @@ export default async function ReviewAppPage({
   }
 
   try {
-    const app = await getAppByReviewToken(token);
+    const app = await getAppByReviewToken(reviewToken);
 
     if (!app) {
       return (
@@ -39,7 +39,7 @@ export default async function ReviewAppPage({
             The app you are trying to review could not be found.
           </p>
 
-          <hr className="w-full mt-8" />
+          <hr className="w-full mt-8 border-default-200" />
           <div className="flex items-center">
             <p className="font-medium">
               MyTripAssistant{" "}
@@ -50,7 +50,7 @@ export default async function ReviewAppPage({
       );
     }
 
-    return <ReviewAppPageContent app={app} token={token} />;
+    return <ReviewAppPageContent app={app} reviewToken={reviewToken} />;
   } catch (err) {
     console.error(err);
 
@@ -61,7 +61,7 @@ export default async function ReviewAppPage({
           An error occurred while loading the page.
         </p>
 
-        <hr className="w-full mt-8" />
+        <hr className="w-full mt-8 border-default-200" />
         <div className="flex items-center">
           <p className="font-medium">
             MyTripAssistant{" "}

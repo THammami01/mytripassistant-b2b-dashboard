@@ -50,6 +50,7 @@ export async function PUT(req: NextRequest) {
       googleIds: undefined,
       feedback: undefined,
       company: user.company,
+      apps: user.apps,
     };
 
     return NextResponse.json(userWithoutSensitiveData);
