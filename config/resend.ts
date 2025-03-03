@@ -4,7 +4,7 @@ import { RESEND_API_KEY } from "./server-constants";
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
 
-export async function sendEmail(to: string, subject: string, html: string) {
+export async function sendEmail(to: string | string[], subject: string, html: string) {
   if (!resend) {
     console.error("Resend API key not configured");
     throw new Error("Email service not configured");

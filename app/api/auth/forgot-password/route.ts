@@ -30,20 +30,18 @@ export async function POST(req: Request) {
 
     const resetPasswordToken = `${uuidv4()}-${crypto.randomBytes(64).toString("base64url")}`;
 
-    await prisma.token.upsert({
-      where: {
-        userId: user.id,
-        type: "PASSWORD_RESET",
-      },
-      create: {
+    const token = await prisma.token.create({
+      data: {
         type: "PASSWORD_RESET",
         value: resetPasswordToken,
         expiresAt: new Date(Date.now() + 3600000), // 1 hour
-        userId: user.id,
       },
-      update: {
-        value: resetPasswordToken,
-        expiresAt: new Date(Date.now() + 3600000), // 1 hour
+    });
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        passwordResetTokenId: token.id,
       },
     });
 

@@ -19,7 +19,8 @@ model User {
   firstName            String?
   lastName             String?
   hashedPassword       String
-  passwordResetTokenId Token?
+  passwordResetToken   Token?     @relation(fields: [passwordResetTokenId], references: [id])
+  passwordResetTokenId String?
   googleIds            String[]
   company              Company?
   feedback             Feedback[]
@@ -33,10 +34,10 @@ model Token {
   type      TokenType
   expiresAt DateTime
   value     String
-  user      User      @relation(fields: [userId], references: [id])
-  userId    String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
+  users     User[]
+  apps      App[]
 }
 
 model Company {
@@ -65,21 +66,24 @@ model Feedback {
 }
 
 model App {
-  id           String          @id @default(uuid())
-  name         String
-  description  String
-  url          String
-  platform     AppPlatform
-  reviewStatus AppReviewStatus @default(PENDING)
-  published    Boolean         @default(false)
-  user         User            @relation(fields: [userId], references: [id])
-  userId       String
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @default(now()) @updatedAt
+  id            String          @id @default(uuid())
+  name          String
+  description   String
+  url           String
+  platform      AppPlatform
+  reviewStatus  AppReviewStatus @default(PENDING)
+  reviewToken   Token?          @relation(fields: [reviewTokenId], references: [id])
+  reviewTokenId String?
+  published     Boolean         @default(false)
+  user          User            @relation(fields: [userId], references: [id])
+  userId        String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now()) @updatedAt
 }
 
 enum TokenType {
   PASSWORD_RESET
+  REVIEW_APP
 }
 
 enum Rating {

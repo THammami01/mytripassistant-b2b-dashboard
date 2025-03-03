@@ -10,7 +10,6 @@ import CreateAppModal from "./CreateAppModal";
 
 import { getFaviconFromWebsiteUrl } from "@/config/helpers";
 import { useUser } from "@/contexts/user";
-import { useMediaQuery } from "usehooks-ts";
 
 export default function AppsLayout({
   children,
@@ -26,12 +25,15 @@ export default function AppsLayout({
     onClose: onCreateAppModalClose,
   } = useDisclosure();
   const { user } = useUser();
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const selectedKey = pathname.split("/").pop();
 
   return (
     <div className="flex md:flex-col w-full gap-8 md:h-[calc(100vh-14rem)]">
+      <h2 className="text-small text-default-500">
+        Create and manage your apps.
+      </h2>
+
       <div className="flex flex-col md:flex-row gap-4 md:h-[calc(100vh-14rem)]">
         <div className="flex flex-col w-full gap-4 md:w-1/4 md:flex-col">
           <Button

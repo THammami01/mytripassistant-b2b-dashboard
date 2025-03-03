@@ -9,8 +9,5 @@ export const GOOGLE_OAUTH2_CLIENT_SECRET =
 export const GOOGLE_RECAPTCHA_V3_SECRET_KEY =
   process.env.GOOGLE_RECAPTCHA_V3_SECRET_KEY!;
 
-export const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS!;
-export const EMAIL_HOST = process.env.EMAIL_HOST!;
-export const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD!;
-
 export const RESEND_API_KEY = process.env.RESEND_API_KEY!;
+export const APP_REVIEW_EMAIL_ADDRESSES = process.env.APP_REVIEW_EMAIL_ADDRESSES!;

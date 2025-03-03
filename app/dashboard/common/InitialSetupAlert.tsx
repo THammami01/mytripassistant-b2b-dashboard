@@ -42,7 +42,7 @@ export function InitialSetupAlert() {
       return data;
     }
 
-    const isCreateYourFirstAppAlertShown = true;
+    const isCreateYourFirstAppAlertShown = !user?.apps?.length;
 
     if (isCreateYourFirstAppAlertShown) {
       data.title = CREATE_YOUR_FIRST_APP_TITLE;

@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         value: resetPasswordToken,
         type: "PASSWORD_RESET",
       },
-      include: { user: { include: { company: true } } },
+      include: { users: { include: { company: true } } },
     });
 
     if (!token || token.expiresAt < new Date()) {
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 
     await prisma.$transaction([
       prisma.user.update({
-        where: { id: token.userId },
+        where: { id: token.users[0].id },
         data: { hashedPassword },
       }),
       prisma.token.delete({
@@ -42,10 +42,10 @@ export async function POST(req: Request) {
       }),
     ]);
 
-    await createSession(token.userId);
+    await createSession(token.users[0].id);
 
     const userWithoutSensitiveData = {
-      ...token.user,
+      ...token.users[0],
       hashedPassword: undefined,
       passwordResetTokenId: undefined,
       googleIds: undefined,
