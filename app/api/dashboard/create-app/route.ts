@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
       - Platform: ${app.platform}<br/>
       - Created At: ${getFormattedDate(app.createdAt)}<br/><br/>
       User and Company Details (at the time of request):<br/>
-      - ID: ${id}<br/>
+      - ID: ${user.id}<br/>
       - Email: ${user.email}<br/>
       - First Name: ${user.firstName}<br/>
       - Last Name: ${user.lastName}<br/>
