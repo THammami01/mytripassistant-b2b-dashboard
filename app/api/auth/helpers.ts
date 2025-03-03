@@ -66,7 +66,7 @@ export const verifyJwtToken = async (session: string | undefined = "") => {
     });
 
     return payload;
-  } catch (_err) {
-    console.log("Failed to verify session");
+  } catch (err) {
+    console.log("Failed to verify session", err);
   }
 };

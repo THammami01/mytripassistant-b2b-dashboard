@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       user: userWithoutSensitiveData,
     });
-  } catch (err: any) {
+  } catch (err) {
     console.log(err);
 
     if (err instanceof z.ZodError) {
@@ -57,6 +57,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: errorMessages }, { status: 400 });
     }
 
-    return NextResponse.json({ error: err.message }, { status: 400 });
+    return NextResponse.json(
+      { error: "Failed to process request" },
+      { status: 500 }
+    );
   }
 }

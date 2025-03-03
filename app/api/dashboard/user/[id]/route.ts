@@ -29,7 +29,7 @@ export async function GET(_req: NextRequest) {
     };
 
     return NextResponse.json(userWithoutSensitiveData);
-  } catch (err: any) {
+  } catch (err) {
     console.error(err);
 
     return NextResponse.json(

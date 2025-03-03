@@ -9,6 +9,7 @@ import prisma from "@/prisma/db";
 import { globalHTMLTemplate, reviewAppBlock } from "@/emails";
 import { APP_REVIEW_EMAIL_ADDRESSES } from "@/config/server-constants";
 import { sendEmail } from "@/config/resend";
+import { getFormattedDate } from "@/config/helpers";
 
 export async function POST(req: NextRequest) {
   try {
@@ -57,17 +58,6 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const formatDate = (date: Date) => {
-      return new Intl.DateTimeFormat("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZoneName: "short",
-      }).format(date);
-    };
-
     const appDetails = `
       App Details:<br/>
       - ID: ${app.id}<br/>
@@ -75,7 +65,7 @@ export async function POST(req: NextRequest) {
       - Description: ${app.description}<br/>
       - URL: ${app.url}<br/>
       - Platform: ${app.platform}<br/>
-      - Created At: ${formatDate(app.createdAt)}<br/><br/>
+      - Created At: ${getFormattedDate(app.createdAt)}<br/><br/>
       User and Company Details (at the time of request):<br/>
       - ID: ${id}<br/>
       - Email: ${user.email}<br/>
@@ -87,9 +77,9 @@ export async function POST(req: NextRequest) {
       - Country: ${user.company?.country}<br/>
       - Phone Number: ${user.company?.phoneNumber}<br/>
       - Website: ${user.company?.website}<br/>
-      - Created At: ${formatDate(user.createdAt)}<br/>
-      - Updated At: ${formatDate(user.updatedAt > user.company!.updatedAt ? user.updatedAt : user.company!.updatedAt)}`;
-    const reviewAppUrl = `${process.env.NEXT_PUBLIC_APP_URL}/review-app?token=${reviewAppToken}`;
+      - Created At: ${getFormattedDate(user.createdAt)}<br/>
+      - Updated At: ${getFormattedDate(user.updatedAt > user.company!.updatedAt ? user.updatedAt : user.company!.updatedAt)}`;
+    const reviewAppUrl = `${process.env.NEXT_PUBLIC_APP_URL}/internal/review-app?token=${reviewAppToken}`;
     const emailSubject = "Review App";
     const emailBody = globalHTMLTemplate
       .replace(/\$__SUBJECT__/g, emailSubject)

@@ -13,7 +13,3 @@ export const giveFeedbackRequestSchema = z.object({
 });
 
 export type GiveFeedbackRequestType = z.infer<typeof giveFeedbackRequestSchema>;
-
-export type GiveFeedbackResponseType = {
-  message: string;
-};
