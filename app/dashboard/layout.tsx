@@ -1,9 +1,8 @@
 import { headers } from "next/headers";
 
-import { getUser } from "../actions/dashboard/getUser";
-
 import SubLayout from "./common/SubLayout";
 
+import { getUserById } from "@/app/actions/dashboard/getUserById";
 import { UserProvider, User } from "@/contexts/user";
 
 export default async function DashboardLayout({
@@ -13,7 +12,7 @@ export default async function DashboardLayout({
 }) {
   const headersList = await headers();
   const userId = headersList.get("x-user-id")!;
-  const user = userId ? await getUser(userId) : null;
+  const user = userId ? await getUserById(userId) : null;
 
   return (
     <UserProvider initialUser={user as User}>

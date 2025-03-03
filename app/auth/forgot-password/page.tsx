@@ -48,7 +48,7 @@ export default function Page() {
       })
       .catch((err) => {
         toast.error(err.message);
-        console.log(err);
+        console.error(err);
       })
       .finally(() => {
         setIsLoading(false);

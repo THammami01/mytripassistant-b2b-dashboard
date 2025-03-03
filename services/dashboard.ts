@@ -12,7 +12,7 @@ const DashboardService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Get user failed. ${err.error}.`);
     }
@@ -30,7 +30,7 @@ const DashboardService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Change basic information failed. ${err.error}.`);
     }
@@ -48,7 +48,7 @@ const DashboardService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Change email failed. ${err.error}.`);
     }
@@ -66,7 +66,7 @@ const DashboardService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Change password failed. ${err.error}.`);
     }
@@ -84,7 +84,7 @@ const DashboardService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Give feedback failed. ${err.error}.`);
     }
@@ -102,7 +102,7 @@ const DashboardService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Create app failed. ${err.error}.`);
     }

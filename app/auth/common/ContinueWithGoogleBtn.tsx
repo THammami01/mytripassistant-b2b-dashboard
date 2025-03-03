@@ -39,7 +39,7 @@ export default function ContinueWithGoogleBtn() {
       })
       .catch((err) => {
         toast.error(err.message);
-        console.log(err);
+        console.error(err);
       })
       .finally(() => {
         setIsLoading(false);

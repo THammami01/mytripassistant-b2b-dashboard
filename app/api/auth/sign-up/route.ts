@@ -55,7 +55,7 @@ export async function POST(req: Request) {
       { status: 201 }
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     if (err instanceof z.ZodError) {
       const errorMessages = err.errors

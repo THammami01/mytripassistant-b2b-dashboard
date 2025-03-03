@@ -33,7 +33,7 @@ export async function GET(_req: NextRequest) {
     console.error(err);
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Failed to process request" },
       { status: 500 }
     );
   }

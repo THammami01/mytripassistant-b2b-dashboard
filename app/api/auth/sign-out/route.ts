@@ -8,8 +8,11 @@ export async function POST(_req: Request) {
 
     return NextResponse.json({ message: "Signed out successfully" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
-    return NextResponse.json({ error: "Failed to sign out" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to process request" },
+      { status: 500 }
+    );
   }
 }

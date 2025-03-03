@@ -95,7 +95,7 @@ export async function POST(req: Request) {
       );
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     if (err instanceof z.ZodError) {
       const errorMessages = err.errors
@@ -106,7 +106,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Failed to process request" },
       { status: 500 }
     );
   }

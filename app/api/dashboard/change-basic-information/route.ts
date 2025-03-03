@@ -56,7 +56,7 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json(userWithoutSensitiveData);
   } catch (err) {
-    console.log(err);
+    console.error(err);
 
     if (err instanceof z.ZodError) {
       const errorMessages = err.errors

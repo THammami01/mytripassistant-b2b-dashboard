@@ -16,7 +16,7 @@ const AuthService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Sign up failed. ${err.error}.`);
     }
@@ -33,7 +33,7 @@ const AuthService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Sign in failed. ${err.error}.`);
     }
@@ -48,7 +48,7 @@ const AuthService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Sign out failed. ${err.error}.`);
     }
@@ -65,7 +65,7 @@ const AuthService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Forgot password failed. ${err.error}.`);
     }
@@ -82,7 +82,7 @@ const AuthService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Reset password failed. ${err.error}.`);
     }
@@ -99,7 +99,7 @@ const AuthService = {
 
     if (!response.ok) {
       const err = await response.json();
-      console.log(err);
+      console.error(err);
 
       throw new Error(`Continue with google failed. ${err.error}.`);
     }
