@@ -55,8 +55,9 @@ export default function Page() {
         state: user?.company?.state || "",
         zipCode: user?.company?.zipCode || "",
         country:
-          countries.find((country) => country.name === user?.company?.country)
-            ?.code || "",
+          countries.find((country) =>
+            [country.name, country.code].includes(user?.company?.country!)
+          )?.code || "",
         phoneNumber: user?.company?.phoneNumber || "",
         website: user?.company?.website || "",
       });
@@ -110,11 +111,11 @@ export default function Page() {
               placeholder="Enter last name"
               {...register("lastName")}
             />
-            {/* Company Name */}
+            {/* Company */}
             <Input
               isRequired
               description={errors?.companyName?.message}
-              label="Company Name"
+              label="Company"
               labelPlacement="outside"
               placeholder="Enter company name"
               {...register("companyName")}

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { headers } from "next/headers";
-import { Rating } from "@prisma/client";
 
 import { giveFeedbackRequestSchema } from "./types";
 

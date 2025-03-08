@@ -71,6 +71,7 @@ export async function POST(req: NextRequest) {
       - Email: ${user.email}<br/>
       - First Name: ${user.firstName}<br/>
       - Last Name: ${user.lastName}<br/>
+      - Company: ${user.company?.name}<br/>
       - Address: ${user.company?.address}<br/>
       - State: ${user.company?.state}<br/>
       - Zip Code: ${user.company?.zipCode}<br/>

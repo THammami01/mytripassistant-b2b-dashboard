@@ -29,7 +29,7 @@ export default function AppsLayout({
   const selectedKey = pathname.split("/").pop();
 
   return (
-    <div className="flex md:flex-col w-full gap-8 md:h-[calc(100vh-14rem)]">
+    <div className="flex flex-col w-full gap-8 md:h-[calc(100vh-14rem)] mb-4 md:mb-0">
       <h2 className="text-small text-default-500">
         Create and manage your apps.
       </h2>

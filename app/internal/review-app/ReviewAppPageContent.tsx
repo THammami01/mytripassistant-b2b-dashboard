@@ -68,14 +68,16 @@ export default function Component({
         </div>
 
         <div className="px-2 py-4 mt-3">
-          <Alert
-            className="mb-6"
-            color="warning"
-            title={`You have ${app.pendingAppsFromAllUsersCount - 1} other review request${
-              app.pendingAppsFromAllUsersCount - 1 === 1 ? "" : "s"
-            } pending!`}
-            variant="faded"
-          />
+          {app.pendingAppsFromAllUsersCount - 1 > 0 && (
+            <Alert
+              className="mb-6"
+              color="warning"
+              title={`You have ${app.pendingAppsFromAllUsersCount - 1} other review request${
+                app.pendingAppsFromAllUsersCount - 1 === 1 ? "" : "s"
+              } pending!`}
+              variant="faded"
+            />
+          )}
 
           {isReviewed && (
             <div className="flex flex-col w-full gap-3">
@@ -149,6 +151,12 @@ export default function Component({
                     - Last Name:{" "}
                     <span className="text-default-500">
                       {app.user.lastName}
+                    </span>
+                  </p>
+                  <p>
+                    - Company:{" "}
+                    <span className="text-default-500">
+                      {app.user.company?.name}
                     </span>
                   </p>
                   <p>

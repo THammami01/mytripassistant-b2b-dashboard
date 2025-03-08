@@ -41,7 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             backgroundPosition: "center",
           }}
         >
-          <div className="flex flex-col items-end gap-4 mb-12">
+          <div className="flex flex-col items-end gap-4 mb-14">
             <User
               avatarProps={{
                 src: "https://i.pravatar.cc/150?u=a04258a2462d826712d",

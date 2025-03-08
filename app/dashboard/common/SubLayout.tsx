@@ -139,7 +139,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
       >
         <div
           className={cn(
-            "will-change relative flex h-dvh overflow-y-scroll w-72 flex-col bg-default-100 p-6 transition-width",
+            "will-change relative flex h-dvh overflow-y-scroll overflow-x-hidden w-72 flex-col bg-default-100 p-6 transition-width",
             {
               "w-[83px] items-center px-[6px] py-6": isCollapsed,
             }

@@ -1,9 +1,9 @@
-export type countryProp = {
+export type CountryProp = {
   name: string;
   code: string;
 };
 
-const countries: countryProp[] = [
+const countries: CountryProp[] = [
   { name: "Argentina", code: "AR" },
   { name: "Afghanistan", code: "AF" },
   { name: "Albania", code: "AL" },
