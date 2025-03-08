@@ -205,7 +205,11 @@ export default function Graph() {
   const { chartData, color, suffix, type } = activeChartData;
 
   return (
-    <Card as="dl" className="border border-transparent shadow-small dark:border-default-100 flex-3">
+    <Card
+      isDisabled
+      as="dl"
+      className="border border-transparent shadow-small dark:border-default-100 flex-3"
+    >
       <section className="flex flex-col flex-nowrap">
         <div className="flex flex-col justify-between p-6 gap-y-2">
           <div className="flex flex-col gap-y-2">

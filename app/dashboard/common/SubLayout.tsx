@@ -117,7 +117,11 @@ export default function SubLayout({ children }: PropsWithChildren) {
                 href: "/dashboard/apps/create-a-new-app",
                 title: "Create a new app",
                 startContent: (
-                  <Icon icon="solar:plus-circle-line-duotone" width={16} />
+                  <Icon
+                    className="text-default-400"
+                    icon="solar:add-circle-line-duotone"
+                    width={24}
+                  />
                 ),
               },
             ],

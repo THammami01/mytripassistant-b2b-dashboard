@@ -127,6 +127,7 @@ const ChartCard = React.forwardRef<HTMLDivElement, ChartCardProps>(
     return (
       <Card
         ref={ref}
+        isDisabled
         className={classes.card({
           className,
         })}

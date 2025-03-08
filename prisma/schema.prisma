@@ -74,7 +74,6 @@ model App {
   reviewStatus  AppReviewStatus @default(PENDING)
   reviewToken   Token?          @relation(fields: [reviewTokenId], references: [id], onDelete: SetNull)
   reviewTokenId String?
-  published     Boolean         @default(false)
   user          User            @relation(fields: [userId], references: [id])
   userId        String
   createdAt     DateTime        @default(now())
