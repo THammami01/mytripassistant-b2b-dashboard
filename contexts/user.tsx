@@ -25,7 +25,6 @@ export interface User {
     url: string;
     platform: AppPlatform;
     reviewStatus: AppReviewStatus;
-    published: boolean;
   }[];
 }
 

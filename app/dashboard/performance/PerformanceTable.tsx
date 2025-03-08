@@ -594,8 +594,8 @@ export default function PerformanceTable() {
   const topBar = useMemo(() => {
     return (
       <div className="mb-[18px] flex items-center justify-between">
-        <div className="flex w-[226px] md:w-[300px] items-center gap-2">
-          <h1 className="text-2xl font-[700] leading-[32px]">Report</h1>
+        <div className="flex flex-wrap w-[226px] md:w-[300px] items-center gap-2">
+          <h1 className="text-2xl font-[700] leading-[32px]">Transactions</h1>
           <Chip
             className="items-center hidden text-default-500 sm:flex"
             size="sm"
@@ -605,8 +605,15 @@ export default function PerformanceTable() {
           </Chip>
         </div>
         <Button
+          className="!min-w-fit"
           color="default"
-          endContent={<Icon icon="solar:add-circle-bold" width={20} />}
+          endContent={
+            <Icon
+              className="min-w-fit"
+              icon="solar:add-circle-bold"
+              width={20}
+            />
+          }
           variant="light"
           onPress={() => router.push("/dashboard/apps")}
         >
