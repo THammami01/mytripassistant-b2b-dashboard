@@ -66,16 +66,17 @@ export type PerformanceData = {
 };
 
 export type ColumnsKey =
-  // | "workerID"
-  // | "externalWorkerID"
-  // | "memberInfo"
+  | "workerID"
+  | "externalWorkerID"
+  | "memberInfo"
   // | "country"
-  // | "role"
-  // | "workerType"
-  // | "status"
-  // | "startDate"
-  // | "teams"
-  // | "actions"
+  | "role"
+  | "workerType"
+  | "status"
+  | "startDate"
+  | "teams"
+  | "actions"
+  // ===
   | "app"
   | "transactionId"
   | "userId"
@@ -109,7 +110,14 @@ export const INITIAL_VISIBLE_COLUMNS: ColumnsKey[] = [
   "actions",
 ];
 
-export const columns = [
+type Column = {
+  name: string;
+  uid: ColumnsKey;
+  sortDirection?: "ascending" | "descending";
+  info?: string;
+};
+
+export const columns: Column[] = [
   // { name: "Worker ID", uid: "workerID" },
   // { name: "External Worker ID", uid: "externalWorkerID" },
   // { name: "Member", uid: "memberInfo", sortDirection: "ascending" },

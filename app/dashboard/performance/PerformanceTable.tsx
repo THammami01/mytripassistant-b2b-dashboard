@@ -35,7 +35,7 @@ import { Icon } from "@iconify/react";
 import { cn } from "@heroui/react";
 import { useRouter } from "next/navigation";
 
-import { CopyText } from "./copy-text";
+import { CopyText } from "./CopyText";
 import {
   EyeFilledIcon,
   EditLinearIcon,
@@ -595,9 +595,7 @@ export default function PerformanceTable() {
     return (
       <div className="mb-[18px] flex items-center justify-between">
         <div className="flex w-[226px] md:w-[300px] items-center gap-2">
-          <h1 className="text-2xl font-[700] leading-[32px]">
-            Report
-          </h1>
+          <h1 className="text-2xl font-[700] leading-[32px]">Report</h1>
           <Chip
             className="items-center hidden text-default-500 sm:flex"
             size="sm"
@@ -609,6 +607,7 @@ export default function PerformanceTable() {
         <Button
           color="default"
           endContent={<Icon icon="solar:add-circle-bold" width={20} />}
+          variant="light"
           onPress={() => router.push("/dashboard/apps")}
         >
           Add a new app
