@@ -3,7 +3,7 @@
 import { Icon } from "@iconify/react";
 
 import { type SidebarItem } from "./Sidebar";
-import TeamAvatar from "./TeamAvatar";
+// import TeamAvatar from "./TeamAvatar";
 
 const sidebarItems: SidebarItem[] = [
   {
@@ -35,6 +35,12 @@ const sidebarItems: SidebarItem[] = [
         icon: "solar:chart-outline",
         title: "Performance",
       },
+      // {
+      //   key: "/dashboard/transactions",
+      //   href: "/dashboard/transactions",
+      //   icon: "grommet-icons:transaction",
+      //   title: "Transactions",
+      // },
       {
         key: "/dashboard/settings",
         href: "/dashboard/settings",

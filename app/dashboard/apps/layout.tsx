@@ -29,12 +29,12 @@ export default function AppsLayout({
   const selectedKey = pathname.split("/").pop();
 
   return (
-    <div className="flex flex-col w-full gap-8 md:h-[calc(100vh-14rem)] mb-4 md:mb-0">
+    <div className="flex flex-col w-full gap-8 mb-4 md:mb-0">
       <h2 className="text-small text-default-500">
         Create and manage your apps.
       </h2>
 
-      <div className="flex flex-col md:flex-row gap-4 md:h-[calc(100vh-14rem)]">
+      <div className="flex flex-col md:flex-row gap-4 md:h-[calc(100vh-12rem)]">
         <div className="flex flex-col w-full gap-4 md:w-1/4 md:flex-col">
           <Button
             className="w-full h-12 font-medium border-dashed text-success pr-0.5"

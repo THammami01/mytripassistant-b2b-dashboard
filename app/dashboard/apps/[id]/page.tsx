@@ -17,11 +17,11 @@ export default function Page() {
 
   return (
     <Card
-      isDisabled
-      className="min-h-[calc(50vh)] md:min-h-auto md:h-full"
+      className="min-h-[calc(50vh)] md:min-h-auto md:h-full shadow-small"
+      isDisabled={app?.reviewStatus !== "ACCEPTED"}
       shadow="sm"
     >
-      <CardBody>
+      <CardBody className="p-0">
         {id === "create-a-new-app" && (
           <div className="flex items-center justify-center w-full h-[calc(50vh)] md:h-full text-md">
             <p>

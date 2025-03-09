@@ -692,6 +692,7 @@ export default function PerformanceTable() {
         }}
         selectedKeys={filterSelectedKeys}
         selectionMode="multiple"
+        shadow="sm"
         sortDescriptor={sortDescriptor}
         topContent={topContent}
         topContentPlacement="outside"
