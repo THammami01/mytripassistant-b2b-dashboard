@@ -62,7 +62,6 @@ export default function Page() {
           placeholder="Enter your GetYourGuide API key"
           type={isGetYourGuideAPIKeyVisible ? "text" : "password"}
           // value={app.name}
-          variant="bordered"
         />
 
         <Link
@@ -101,7 +100,6 @@ export default function Page() {
           placeholder="Enter your Travelpayouts API key"
           type={isTravelpayoutsAPIKeyVisible ? "text" : "password"}
           // value={app.platform}
-          variant="bordered"
         />
 
         <Link

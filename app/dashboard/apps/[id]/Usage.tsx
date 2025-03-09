@@ -104,7 +104,10 @@ With _url_ in the response, you can embed it in your platform or open it in a ne
               const { children, ...rest } = props;
 
               return (
-                <ul {...rest} className="flex flex-col gap-1 my-2 ml-6 list-disc">
+                <ul
+                  {...rest}
+                  className="flex flex-col gap-1 my-2 ml-6 list-disc"
+                >
                   {children}
                 </ul>
               );
@@ -119,7 +122,9 @@ With _url_ in the response, you can embed it in your platform or open it in a ne
       <Divider className="mt-3 mb-1.5" />
 
       <div className="flex flex-col">
-        <h3 className="mb-2 text-base font-medium">Token Generation Origins Whitelist</h3>
+        <h3 className="mb-2 text-base font-medium">
+          Token Generation Origins Whitelist
+        </h3>
         <p className="mb-4 text-sm text-default-500">
           This is optional. However, if provided, we will only accept token
           generation requests from these origins. If not provided, requests will
@@ -132,7 +137,9 @@ With _url_ in the response, you can embed it in your platform or open it in a ne
           placeholder="Enter origins (one per line, e.g. https://mytripassistant.com)"
         />
         <div className="flex mt-4">
-          <Button color="success">Save</Button>
+          <Button color="success" radius="full">
+            Save Changes
+          </Button>
         </div>
       </div>
     </div>
