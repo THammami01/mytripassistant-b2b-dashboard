@@ -1,3 +1,8 @@
+import {
+  UpdateAppBasicInformationFormType,
+  UpdateAppPartnerKeysFormType,
+  UpdateAppUsageFormType,
+} from "@/app/dashboard/apps/[id]/types";
 import { CreateAppFormType } from "@/app/dashboard/apps/types";
 import { GiveFeedbackFormType } from "@/app/dashboard/common/types";
 import { ChangeBasicInformationFormType } from "@/app/dashboard/settings/basic-information";
@@ -105,6 +110,63 @@ const DashboardService = {
       console.error(err);
 
       throw new Error(`Create app failed. ${err.error}.`);
+    }
+
+    return response.json();
+  },
+
+  async updateAppBasicInformation(data: UpdateAppBasicInformationFormType) {
+    const response = await fetch(
+      `/api/dashboard/update-app-basic-information`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+        credentials: "include",
+      }
+    );
+
+    if (!response.ok) {
+      const err = await response.json();
+      console.error(err);
+
+      throw new Error(`Update app basic information failed. ${err.error}.`);
+    }
+
+    return response.json();
+  },
+
+  async updateAppUsage(data: UpdateAppUsageFormType) {
+    const response = await fetch(`/api/dashboard/update-app-usage`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      console.error(err);
+
+      throw new Error(`Update app usage failed. ${err.error}.`);
+    }
+
+    return response.json();
+  },
+
+  async updateAppPartnerKeys(data: UpdateAppPartnerKeysFormType) {
+    const response = await fetch(`/api/dashboard/update-app-partner-keys`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      console.error(err);
+
+      throw new Error(`Update app partner keys failed. ${err.error}.`);
     }
 
     return response.json();

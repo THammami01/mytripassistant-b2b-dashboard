@@ -68,7 +68,7 @@ export default function AppTabs() {
             <p>API Key:</p>
             <Input
               readOnly
-              className="font-[monospace] w-[10.25rem]"
+              className="font-[monospace] w-[11rem]"
               endContent={
                 <button type="button" onClick={toggleAPIKeyVisibility}>
                   {isAPIKeyVisible ? (
@@ -86,11 +86,11 @@ export default function AppTabs() {
               }
               size="sm"
               type={isAPIKeyVisible ? "text" : "password"}
-              value="AK-1234567890"
+              value={app.apiKey!}
               variant="flat"
             />
             <CopyText iconClassName="h-[20px] w-[20px]" textClassName="hidden">
-              AK-1234567890
+              {app.apiKey!}
             </CopyText>
           </div>
 

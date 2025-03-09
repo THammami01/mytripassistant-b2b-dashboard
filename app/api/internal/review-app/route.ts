@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { v4 as uuidv4 } from "uuid";
+import { AppReviewStatus } from "@prisma/client";
 
 import { reviewAppSchema } from "./types";
 
@@ -24,7 +26,12 @@ export async function POST(request: NextRequest) {
 
     await prisma.app.update({
       where: { id: appId },
-      data: { reviewStatus },
+      data: {
+        reviewStatus,
+        ...(reviewStatus === AppReviewStatus.ACCEPTED
+          ? { apiKey: `AK-${uuidv4().replace(/-/g, "").slice(0, 12)}` }
+          : {}),
+      },
     });
 
     await prisma.token.delete({
