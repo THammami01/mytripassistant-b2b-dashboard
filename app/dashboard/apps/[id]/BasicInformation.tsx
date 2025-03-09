@@ -1,10 +1,13 @@
 "use client";
 
-import { Button, Input, Textarea } from "@heroui/react";
+import { Button, Input, Select, SelectItem, Textarea } from "@heroui/react";
 import { useParams } from "next/navigation";
 import { useMediaQuery } from "usehooks-ts";
+import { Icon } from "@iconify/react";
+import { useEffect, useState } from "react";
 
 import { useUser } from "@/contexts/user";
+import { AppPlatformEnum } from "@/app/api/dashboard/create-app/types";
 
 export default function Page() {
   const { id } = useParams();
@@ -12,6 +15,12 @@ export default function Page() {
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const app = user?.apps.find((app) => app.id === id)!;
+
+  const [appPlatform, setAppPlatform] = useState<AppPlatformEnum>();
+
+  useEffect(() => {
+    setAppPlatform(app.platform as AppPlatformEnum);
+  }, [app]);
 
   return (
     <div className="flex flex-col gap-6 px-2">
@@ -37,6 +46,82 @@ export default function Page() {
           variant="bordered"
         />
 
+        {/* <Select
+          classNames={{
+            label: "w-36",
+            mainWrapper: "w-full",
+          }}
+          label="App Platform"
+          labelPlacement={isMobile ? "outside" : "outside-left"}
+          maxListboxHeight={300}
+          placeholder="Select your app platform"
+          value={appPlatform}
+          variant="bordered"
+          onSelectionChange={(value) => {
+            setAppPlatform(value as unknown as AppPlatformEnum);
+          }}
+          // description={errors?.platform?.message}
+        >
+          <SelectItem
+            key={AppPlatformEnum.WEB}
+            startContent={<Icon height="24" icon="mdi:web" width="24" />}
+          >
+            Web
+          </SelectItem>
+          <SelectItem
+            key={AppPlatformEnum.CROSS_PLATFORM}
+            startContent={
+              <Icon height="24" icon="garden:platform-26" width="24" />
+            }
+          >
+            Cross-Platform
+          </SelectItem>
+          <SelectItem
+            key={AppPlatformEnum.IOS}
+            startContent={<Icon height="24" icon="raphael:ios" width="24" />}
+          >
+            iOS
+          </SelectItem>
+          <SelectItem
+            key={AppPlatformEnum.ANDROID}
+            startContent={<Icon height="24" icon="mdi:android" width="24" />}
+          >
+            Android
+          </SelectItem>
+          <SelectItem
+            key={AppPlatformEnum.MACOS}
+            startContent={
+              <Icon height="24" icon="simple-icons:macos" width="24" />
+            }
+          >
+            macOS
+          </SelectItem>
+          <SelectItem
+            key={AppPlatformEnum.WINDOWS}
+            startContent={
+              <Icon height="24" icon="mage:microsoft-windows" width="24" />
+            }
+          >
+            Windows
+          </SelectItem>
+          <SelectItem
+            key={AppPlatformEnum.LINUX}
+            startContent={
+              <Icon height="24" icon="simple-icons:linux" width="24" />
+            }
+          >
+            Linux
+          </SelectItem>
+          <SelectItem
+            key={AppPlatformEnum.OTHER}
+            startContent={
+              <Icon height="24" icon="basil:other-1-outline" width="24" />
+            }
+          >
+            Other
+          </SelectItem>
+        </Select> */}
+
         <Input
           classNames={{
             label: "w-36 -ml-1.5",
@@ -44,8 +129,8 @@ export default function Page() {
           }}
           label="App Platform"
           labelPlacement={isMobile ? "outside" : "outside-left"}
-          placeholder="Enter your app platform"
-          value={app.platform}
+          placeholder="Select your app platform"
+          value={appPlatform}
           variant="bordered"
         />
 

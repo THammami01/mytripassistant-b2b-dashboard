@@ -308,7 +308,7 @@ export default function SubLayout({ children }: PropsWithChildren) {
                 }
                 variant="light"
                 onPress={() =>
-                  window.open("https://docs.b2b.mytripassistant.com", "_blank")
+                  window.open("https://mytripassistant.com", "_blank")
                 }
               >
                 {isCollapsed ? (

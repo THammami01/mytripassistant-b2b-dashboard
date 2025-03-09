@@ -10,8 +10,8 @@ export default function Page() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 w-full max-w-[500px] text-default-500">
-        <p>Not implemented yet.</p>
+      <div className="flex flex-col gap-4 w-full max-w-[500px]">
+        <p className="text-default-500 text-md">Not implemented yet.</p>
       </div>
     </div>
   );
