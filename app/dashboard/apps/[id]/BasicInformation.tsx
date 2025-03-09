@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import {
   updateAppBasicInformationFormSchema,
@@ -56,6 +57,7 @@ export default function Page() {
     setIsLoading(true);
 
     setTimeout(() => {
+      toast.success("Basic information updated successfully.");
       setIsLoading(false);
     }, 1000);
   };

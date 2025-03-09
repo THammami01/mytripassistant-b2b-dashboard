@@ -1,3 +1,4 @@
+export const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL!;
 export const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!;
 export const GOOGLE_RECAPTCHA_V3_SITE_KEY =
   process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3_SITE_KEY!;

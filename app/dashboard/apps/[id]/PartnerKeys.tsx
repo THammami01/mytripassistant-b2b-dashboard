@@ -5,6 +5,14 @@ import { useParams } from "next/navigation";
 import { useMediaQuery } from "usehooks-ts";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import {
+  updateAppPartnerKeysFormSchema,
+  UpdateAppPartnerKeysFormType,
+} from "./types";
 
 import { useUser } from "@/contexts/user";
 
@@ -16,6 +24,21 @@ export default function Page() {
     useState(false);
   const [isTravelpayoutsAPIKeyVisible, setIsTravelpayoutsAPIKeyVisible] =
     useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    setValue,
+    reset,
+  } = useForm<UpdateAppPartnerKeysFormType>({
+    mode: "all",
+    resolver: zodResolver(updateAppPartnerKeysFormSchema),
+    defaultValues: {
+      getYourGuideAPIKey: "",
+      travelpayoutsAPIKey: "",
+    },
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const _app = user?.apps.find((app) => app.id === id)!;
 
@@ -27,6 +50,17 @@ export default function Page() {
     setIsTravelpayoutsAPIKeyVisible(!isTravelpayoutsAPIKeyVisible);
   };
 
+  const onSubmit = (data: UpdateAppPartnerKeysFormType) => {
+    console.log(data);
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      toast.success("Partner keys updated successfully.");
+      setIsLoading(false);
+    }, 1000);
+  };
+
   return (
     <div className="flex flex-col gap-6 px-2">
       <div>
@@ -36,7 +70,10 @@ export default function Page() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 w-full max-w-[500px]">
+      <form
+        className="flex flex-col gap-4 w-full max-w-[500px]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Input
           classNames={{
             label: "w-36 -ml-1.5",
@@ -61,7 +98,8 @@ export default function Page() {
           labelPlacement={isMobile ? "outside" : "outside-left"}
           placeholder="Enter your GetYourGuide API key"
           type={isGetYourGuideAPIKeyVisible ? "text" : "password"}
-          // value={app.name}
+          {...register("getYourGuideAPIKey")}
+          description={errors?.getYourGuideAPIKey?.message}
         />
 
         <Link
@@ -99,7 +137,8 @@ export default function Page() {
           labelPlacement={isMobile ? "outside" : "outside-left"}
           placeholder="Enter your Travelpayouts API key"
           type={isTravelpayoutsAPIKeyVisible ? "text" : "password"}
-          // value={app.platform}
+          {...register("travelpayoutsAPIKey")}
+          description={errors?.travelpayoutsAPIKey?.message}
         />
 
         <Link
@@ -116,15 +155,15 @@ export default function Page() {
         <div className="flex w-full gap-2 mt-3">
           <Button
             color="success"
-            // isDisabled={!isValid || isLoading}
-            // isLoading={isLoading}
+            isDisabled={!isValid || isLoading}
+            isLoading={isLoading}
             radius="full"
             type="submit"
           >
             Save Changes
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

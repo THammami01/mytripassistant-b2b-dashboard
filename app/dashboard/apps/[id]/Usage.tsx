@@ -1,22 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Textarea, Button, Divider } from "@heroui/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useTheme } from "next-themes";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-hot-toast";
 
-export default function Usage() {
-  const markdownContent = `
+import { updateAppUsageFormSchema, UpdateAppUsageFormType } from "./types";
+
+import { NEXT_PUBLIC_APP_URL } from "@/config/public-constants";
+
+const markdownContent = `
 ### Integration Guide
 
 Using your backend, send us a request with the following details:
 
 \`\`\`json
 URL:
-${process.env.NEXT_PUBLIC_APP_URL}/api/external/generate-token
+${NEXT_PUBLIC_APP_URL}/api/external/generate-token
 
 Method: POST
 
@@ -39,7 +45,7 @@ The response will be as follows:
 \`\`\`json
 JSON Body:
 {
-  "url": "${process.env.NEXT_PUBLIC_APP_URL}/?token=<TOKEN>"
+  "url": "${NEXT_PUBLIC_APP_URL}/?token=<TOKEN>"
 }
 \`\`\`
 
@@ -53,7 +59,34 @@ This token is required for us to verify your users and track their actions.
 
 With _url_ in the response, you can embed it in your platform or open it in a new browser tab.
 `;
+
+export default function Usage() {
   const { theme } = useTheme();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    setValue,
+    reset,
+  } = useForm<UpdateAppUsageFormType>({
+    mode: "all",
+    resolver: zodResolver(updateAppUsageFormSchema),
+    defaultValues: {
+      tokenGenerationOriginsWhitelist: "",
+    },
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = (data: UpdateAppUsageFormType) => {
+    console.log(data);
+
+    setIsLoading(true);
+
+    setTimeout(() => {
+      toast.success("Token generation origins whitelist updated successfully.");
+      setIsLoading(false);
+    }, 1000);
+  };
 
   return (
     <div className="flex flex-col gap-4 px-2">
@@ -79,7 +112,7 @@ With _url_ in the response, you can embed it in your platform or open it in a ne
             },
 
             code(props) {
-              const { children, className, node, ...rest } = props;
+              const { children, className, ...rest } = props;
               const match = /language-(\w+)/.exec(className || "");
 
               return match ? (
@@ -121,7 +154,7 @@ With _url_ in the response, you can embed it in your platform or open it in a ne
 
       <Divider className="mt-3 mb-1.5" />
 
-      <div className="flex flex-col">
+      <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <h3 className="mb-2 text-base font-medium">
           Token Generation Origins Whitelist
         </h3>
@@ -135,13 +168,21 @@ With _url_ in the response, you can embed it in your platform or open it in a ne
           className="w-full"
           minRows={3}
           placeholder="Enter origins (one per line, e.g. https://mytripassistant.com)"
+          {...register("tokenGenerationOriginsWhitelist")}
+          description={errors?.tokenGenerationOriginsWhitelist?.message}
         />
         <div className="flex mt-4">
-          <Button color="success" radius="full">
+          <Button
+            color="success"
+            isDisabled={!isValid || isLoading}
+            isLoading={isLoading}
+            radius="full"
+            type="submit"
+          >
             Save Changes
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

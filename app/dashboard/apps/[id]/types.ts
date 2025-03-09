@@ -23,6 +23,43 @@ export const updateAppBasicInformationFormSchema = z.object({
   ]),
 });
 
+export const updateAppUsageFormSchema = z.object({
+  tokenGenerationOriginsWhitelist: z
+    .string()
+    .min(1, { message: "Token generation origins whitelist is required" })
+    .refine(
+      (value) => {
+        const urls = value.split("\n");
+
+        return urls.every((url) => {
+          try {
+            new URL(url.trim());
+
+            return true;
+          } catch {
+            return false;
+          }
+        });
+      },
+      { message: "Please enter valid URLs separated by new lines" }
+    ),
+});
+
+export const updateAppPartnerKeysFormSchema = z.object({
+  getYourGuideAPIKey: z
+    .string()
+    .min(1, { message: "GetYourGuide API key is required" }),
+  travelpayoutsAPIKey: z
+    .string()
+    .min(1, { message: "Travelpayouts API key is required" }),
+});
+
 export type UpdateAppBasicInformationFormType = z.infer<
   typeof updateAppBasicInformationFormSchema
+>;
+
+export type UpdateAppUsageFormType = z.infer<typeof updateAppUsageFormSchema>;
+
+export type UpdateAppPartnerKeysFormType = z.infer<
+  typeof updateAppPartnerKeysFormSchema
 >;

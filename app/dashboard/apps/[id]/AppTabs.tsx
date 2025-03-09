@@ -68,7 +68,7 @@ export default function AppTabs() {
             <p>API Key:</p>
             <Input
               readOnly
-              className="font-[monospace] w-[10rem]"
+              className="font-[monospace] w-[10.25rem]"
               endContent={
                 <button type="button" onClick={toggleAPIKeyVisibility}>
                   {isAPIKeyVisible ? (
