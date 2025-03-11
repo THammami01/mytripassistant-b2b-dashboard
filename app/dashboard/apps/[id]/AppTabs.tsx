@@ -94,7 +94,11 @@ export default function AppTabs() {
             </CopyText>
           </div>
 
-          <Code className="text-xs">App ID: {app.id}</Code>
+          <Code className="text-xs">
+            App ID:
+            <br className="md:hidden" />
+            {app.id}
+          </Code>
         </div>
       </div>
 

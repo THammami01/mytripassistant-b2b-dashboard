@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
+import dynamic from "next/dynamic";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
@@ -30,13 +31,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const CrispWithNoSSR = dynamic(() => import("../components/CrispChat"));
+
   return (
     <html suppressHydrationWarning lang="en">
+      <CrispWithNoSSR />
+
       <head />
+
       <body
         className={clsx(
           "min-h-dvh bg-background font-sans antialiased",
-          fontSans.variable,
+          fontSans.variable
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>

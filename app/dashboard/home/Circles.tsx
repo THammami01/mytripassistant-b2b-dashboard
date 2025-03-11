@@ -110,7 +110,6 @@ const CircleChartCard = React.forwardRef<
   return (
     <Card
       ref={ref}
-      isDisabled
       className={cn(
         "h-[240px] border border-transparent dark:border-default-100 shadow-small",
         className

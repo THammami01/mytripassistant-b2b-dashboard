@@ -206,7 +206,6 @@ export default function Graph() {
 
   return (
     <Card
-      isDisabled
       as="dl"
       className="border border-transparent shadow-small dark:border-default-100 flex-3"
     >

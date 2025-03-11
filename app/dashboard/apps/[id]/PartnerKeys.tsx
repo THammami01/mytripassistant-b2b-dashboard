@@ -66,7 +66,7 @@ export default function Page() {
       <div>
         <p className="text-base font-medium text-default-700">Partner Keys</p>
         <p className="mt-1 text-sm font-normal text-default-400">
-          Add and manage your third party partner keys.
+          Manage third party partner keys.
         </p>
       </div>
 

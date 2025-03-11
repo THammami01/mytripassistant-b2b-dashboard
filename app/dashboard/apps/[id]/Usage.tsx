@@ -3,7 +3,13 @@
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Textarea, Button, Divider } from "@heroui/react";
+import {
+  Textarea,
+  Button,
+  Divider,
+  Accordion,
+  AccordionItem,
+} from "@heroui/react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { useTheme } from "next-themes";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -15,14 +21,13 @@ import { updateAppUsageFormSchema, UpdateAppUsageFormType } from "./types";
 
 import { NEXT_PUBLIC_APP_URL } from "@/config/public-constants";
 
-const markdownContent = `
+const INTEGRATION_GUIDE_MARKDOWN = `
 ### Integration Guide
 
 Using your backend, send us a request with the following details:
 
 \`\`\`json
-URL:
-${NEXT_PUBLIC_APP_URL}/api/external/generate-token
+URL: ${NEXT_PUBLIC_APP_URL}/api/external/generate-token
 
 Method: POST
 
@@ -35,6 +40,8 @@ JSON Body:
   "sessionDuration": "<SESSION_DURATION_IN_MS>"
 }
 \`\`\`
+
+_x-api-key_ header is required. You can find your API key in the top right corner of this section. Copy it and use it in your requests. This key is unique to the selected app and should never be shared with others or exposed publicly.
 
 _userId_ is optional, however, we recommend providing it so we can track and identify your unique users' actions and show stats about them later.
 
@@ -59,6 +66,57 @@ This token is required for us to verify your users and track their actions.
 
 With _url_ in the response, you can embed it in your platform or open it in a new browser tab.
 `;
+
+const CODE_EXAMPLES_MARKDOWN = {
+  curl: `curl -X POST ${NEXT_PUBLIC_APP_URL}/api/external/generate-token \\
+  -H "x-api-key: <API_KEY>" \\
+  -H "Content-Type: application/json" \\
+  -d '{"userId": "user123", "sessionDuration": 14400000}'  # 4 hours in milliseconds`,
+
+  python: `import requests
+
+url = "${NEXT_PUBLIC_APP_URL}/api/external/generate-token"
+headers = {
+    "x-api-key": "<API_KEY>",
+    "Content-Type": "application/json"
+}
+payload = {
+    "userId": "user123",
+    "sessionDuration": 14400000  # 4 hours in milliseconds
+}
+
+response = requests.post(url, headers=headers, json=payload)
+data = response.json()
+
+# Use the URL from the response
+mytripassistant_url = data["url"]
+print(f"MyTripAssistant URL: {mytripassistant_url}")
+# You can now redirect users to this URL or embed it in an iframe`,
+
+  nodejs: `// Using fetch API
+async function generateToken() {
+  const response = await fetch("${NEXT_PUBLIC_APP_URL}/api/external/generate-token", {
+    method: "POST",
+    headers: {
+      "x-api-key": "<API_KEY>",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      userId: "user123",
+      sessionDuration: 14400000  // 4 hours in milliseconds
+    })
+  });
+
+  const data = await response.json();
+  
+  // Use the URL from the response
+  const mytripassistantUrl = data.url;
+  console.log("MyTripAssistant URL:", mytripassistantUrl);
+  
+  // You can now redirect users to this URL or embed it in an iframe
+  return mytripassistantUrl;
+}`,
+};
 
 export default function Usage() {
   const { theme } = useTheme();
@@ -93,8 +151,8 @@ export default function Usage() {
       <div>
         <p className="text-base font-medium text-default-700">Usage</p>
         <p className="mt-1 text-sm font-normal text-default-400">
-          Learn how to integrate with MyTripAssistant, and add origins to the
-          whitelist.
+          Learn how to integrate with MyTripAssistant, and add token generation
+          origins whitelist.
         </p>
       </div>
 
@@ -148,11 +206,56 @@ export default function Usage() {
           }}
           remarkPlugins={[remarkGfm]}
         >
-          {markdownContent}
+          {INTEGRATION_GUIDE_MARKDOWN}
         </ReactMarkdown>
       </div>
 
       <Divider className="mt-3 mb-1.5" />
+
+      <div>
+        <h3 className="mb-2 text-base font-medium">Code examples</h3>
+
+        <p className="mb-4 text-sm text-default-500">
+          Here are some examples of how to integrate with MyTripAssistant.
+        </p>
+
+        <div className="flex flex-col gap-4">
+          <Accordion isCompact selectionMode="multiple" variant="light">
+            <AccordionItem key="1" aria-label="cURL" title="cURL">
+              <SyntaxHighlighter
+                PreTag="div"
+                className="!text-sm !-mt-1 !mb-2"
+                language="bash"
+                style={theme === "dark" ? atomDark : undefined}
+              >
+                {CODE_EXAMPLES_MARKDOWN.curl}
+              </SyntaxHighlighter>
+            </AccordionItem>
+            <AccordionItem key="2" aria-label="Python" title="Python">
+              <SyntaxHighlighter
+                PreTag="div"
+                className="!text-sm !-mt-1 !mb-2"
+                language="python"
+                style={theme === "dark" ? atomDark : undefined}
+              >
+                {CODE_EXAMPLES_MARKDOWN.python}
+              </SyntaxHighlighter>
+            </AccordionItem>
+            <AccordionItem key="3" aria-label="Node.js" title="Node.js">
+              <SyntaxHighlighter
+                PreTag="div"
+                className="!text-sm !-mt-1 !mb-2"
+                language="javascript"
+                style={theme === "dark" ? atomDark : undefined}
+              >
+                {CODE_EXAMPLES_MARKDOWN.nodejs}
+              </SyntaxHighlighter>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </div>
+
+      <Divider className="mt-2 mb-1.5" />
 
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <h3 className="mb-2 text-base font-medium">
