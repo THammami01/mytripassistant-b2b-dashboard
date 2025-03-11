@@ -23,7 +23,7 @@ import TeamAvatar from "./TeamAvatar";
 import { InitialSetupAlert } from "./InitialSetupAlert";
 import GiveFeedbackModal from "./GiveFeedbackModal";
 
-import ThemeSwitch from "@/components/ThemeSwitch";
+import { ThemeSwitch } from "@/components";
 import { AuthService } from "@/services";
 import { useUser } from "@/contexts/user";
 import { getFaviconFromWebsiteUrl } from "@/config/helpers";

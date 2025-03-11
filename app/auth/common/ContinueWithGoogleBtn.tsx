@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { useGoogleLogin } from "@react-oauth/google";

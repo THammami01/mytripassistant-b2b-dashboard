@@ -1,5 +1,5 @@
-import Loading from "@/components/Loading";
+import { Loading } from "@/components";
 
 export default function AppLoading() {
-  return <Loading className="h-[80vh]" />;
+  return <Loading className="min-h-[calc(50vh)] md:min-h-auto md:h-full" />;
 }

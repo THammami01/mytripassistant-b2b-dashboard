@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       data: {
         type: "REVIEW_APP",
         value: reviewAppToken,
-        expiresAt: new Date(Date.now() + 604800000), // 1 week
+        expiresAt: new Date(Date.now() + 7776000000), // 3 months
       },
     });
 

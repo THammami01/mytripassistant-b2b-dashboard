@@ -31,7 +31,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const CrispWithNoSSR = dynamic(() => import("../components/CrispChat"));
+  const CrispWithNoSSR = dynamic(() => import("../components/CrispChatProvider"));
 
   return (
     <html suppressHydrationWarning lang="en">

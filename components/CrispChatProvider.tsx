@@ -5,7 +5,7 @@ import { Crisp } from "crisp-sdk-web";
 
 import { NEXT_PUBLIC_CRISP_WEBSITE_ID } from "@/config/public-constants";
 
-const CrispChat = () => {
+const CrispChatProvider = () => {
   useEffect(() => {
     Crisp.configure(NEXT_PUBLIC_CRISP_WEBSITE_ID);
   });
@@ -13,4 +13,4 @@ const CrispChat = () => {
   return null;
 };
 
-export default CrispChat;
+export default CrispChatProvider;

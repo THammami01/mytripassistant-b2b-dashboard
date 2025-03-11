@@ -72,7 +72,7 @@ model App {
   url           String
   platform      AppPlatform
   reviewStatus  AppReviewStatus @default(PENDING)
-  apiKey        String?
+  apiKey        String?         @unique
   reviewToken   Token?          @relation(fields: [reviewTokenId], references: [id], onDelete: SetNull)
   reviewTokenId String?
   user          User            @relation(fields: [userId], references: [id])

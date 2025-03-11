@@ -74,7 +74,7 @@ export default function Component({
               color="warning"
               title={`You have ${app.pendingAppsFromAllUsersCount - 1} other review request${
                 app.pendingAppsFromAllUsersCount - 1 === 1 ? "" : "s"
-              } pending!`}
+              } pending.`}
               variant="faded"
             />
           )}

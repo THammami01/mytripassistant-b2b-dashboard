@@ -10,6 +10,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 
 import { GOOGLE_CLIENT_ID } from "@/config/public-constants";
+import { PostHogProvider } from "@/components";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -29,12 +30,14 @@ export function Providers({ children, themeProps }: ProvidersProps) {
 
   return (
     <HeroUIProvider navigate={router.push}>
-      <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-        <NextThemesProvider {...themeProps}>
-          <Toaster position="top-right" />
-          {children}
-        </NextThemesProvider>
-      </GoogleOAuthProvider>
+      <PostHogProvider>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          <NextThemesProvider {...themeProps}>
+            <Toaster position="top-right" />
+            {children}
+          </NextThemesProvider>
+        </GoogleOAuthProvider>
+      </PostHogProvider>
     </HeroUIProvider>
   );
 }

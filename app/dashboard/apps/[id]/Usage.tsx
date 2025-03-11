@@ -69,7 +69,7 @@ With _url_ in the response, you can embed it in your platform or open it in a ne
 
 const CODE_EXAMPLES_MARKDOWN = {
   curl: `curl -X POST ${NEXT_PUBLIC_APP_URL}/api/external/generate-token \\
-  -H "x-api-key: <API_KEY>" \\
+  -H "x-api-key: AK-1234567890ab" \\
   -H "Content-Type: application/json" \\
   -d '{"userId": "user123", "sessionDuration": 14400000}'  # 4 hours in milliseconds`,
 
@@ -77,7 +77,7 @@ const CODE_EXAMPLES_MARKDOWN = {
 
 url = "${NEXT_PUBLIC_APP_URL}/api/external/generate-token"
 headers = {
-    "x-api-key": "<API_KEY>",
+    "x-api-key": "AK-1234567890ab",
     "Content-Type": "application/json"
 }
 payload = {
@@ -98,7 +98,7 @@ async function generateToken() {
   const response = await fetch("${NEXT_PUBLIC_APP_URL}/api/external/generate-token", {
     method: "POST",
     headers: {
-      "x-api-key": "<API_KEY>",
+      "x-api-key": "AK-1234567890ab",
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
