@@ -46,7 +46,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col items-end gap-4 mb-14">
             <User
               avatarProps={{
-                src: "https://i.pravatar.cc/150?u=a04258a2462d826712d",
+                src: "https://res.cloudinary.com/dgihbgsnz/image/upload/v1747085562/image_16_1_v18lth.png",
               }}
               classNames={{
                 base: "flex flex-row-reverse",
