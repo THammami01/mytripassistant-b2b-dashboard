@@ -53,14 +53,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 name: "w-full text-right text-white",
                 description: "text-white/80",
               }}
-              description="Founder & CEO at ACME"
-              name="Bruno Reichert"
+              description="American author and disability rights advocate"
+              name="Helen Keller"
             />
             <p className="w-full text-2xl text-right text-white/90">
               <span className="font-medium">“</span>
               <span className="italic font-normal">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                eget augue nec massa volutpat aliquet.
+                Life is either a daring adventure or nothing.
               </span>
               <span className="font-medium">”</span>
             </p>
